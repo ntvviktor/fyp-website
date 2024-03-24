@@ -41,4 +41,4 @@ See the page on `http://127.0.0.1:5000`
 
 Demo image:
 
-![photo]([http://url/to/img.png](https://github.com/ntvviktor/fyp-website/blob/main/demo.png)https://github.com/ntvviktor/fyp-website/blob/main/demo.png)
+![](https://github.com/ntvviktor/fyp-website/blob/main/demo.png)
