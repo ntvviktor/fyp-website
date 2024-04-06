@@ -43,3 +43,5 @@ python main.py
 See the page on `http://127.0.0.1:5000`
 
 Demo image:
+
+![](https://github.com/ntvviktor/fyp-website/blob/main/demo.png)
