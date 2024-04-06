@@ -13,13 +13,14 @@ accounts_bp = Blueprint("accounts", __name__)
 def login():
     if current_user.is_authenticated:
         flash("You are already logged in.", "info")
-        return redirect(url_for("core.home"))
+        return redirect(url_for("home.home"))
     form = LoginForm(request.form)
+
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, request.form["password"]):
             login_user(user)
-            return redirect(url_for("core.home"))
+            return redirect(url_for("home.home"))
         else:
             flash("Invalid email and/or password.", "danger")
             return render_template("accounts/login.html", form=form)
@@ -30,17 +31,22 @@ def login():
 def register():
     if current_user.is_authenticated:
         flash("You are already registered.", "info")
-        return redirect(url_for("core.home"))
+        return redirect(url_for("home.home"))
     form = RegisterForm(request.form)
-    if form.validate_on_submit():
-        user = User(email=form.email.data, password=form.password.data)
+    # if request.method == "POST" and form.validate_on_submit():
+    if request.method == "POST":
+        full_name = form["full_name"].data
+        username = form["username"].data
+        email = form["email"].data
+        password = form["password"].data
+        user = User(full_name=full_name, username=username, email=email, password=password)
         db.session.add(user)
         db.session.commit()
 
         login_user(user)
         flash("You registered and are now logged in. Welcome!", "success")
 
-        return redirect(url_for("core.home"))
+        return redirect(url_for("home.home"))
 
     return render_template("accounts/register.html", form=form)
 

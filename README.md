@@ -1,5 +1,8 @@
 How to run this project
 
+0. Populate the sql data into your local MySQL database
+the query is in the folder `database/fypv2.sql`
+
 1. Create python virtual environment
 
 ```shell
@@ -7,7 +10,7 @@ python3 -m venv .venv
 ```
 
 2. Activate the virtual environment
-   Window
+Window
 
 ```shell
 .venv\Scripts\activate

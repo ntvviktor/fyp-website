@@ -67,13 +67,9 @@ INSERT INTO `genre` (`id`, `type`) VALUES
 (26, 'Satire'),
 (27, 'Anthology');
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `product`
---
 
-CREATE TABLE `product` (
+CREATE TABLE `book` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
@@ -85,9 +81,7 @@ CREATE TABLE `product` (
   `datetime` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `product`
---
 
 INSERT INTO `product` (`id`, `name`, `price`, `author`, `rating`, `description`, `genre`, `image`, `datetime`) VALUES
 (1, 'Echoes of Eternity', 33.00, 'Aaron Dembski-Bowden', '4.8', 'The walls have fallen. The defenders’ unity is broken. The Inner Palace lies in ruins. The Warmaster’s horde advances through the fire and ash of Terra’s dying breaths, forcing the loyalists back to the Delphic Battlement, the very walls of the Sanctum Imperialis. Angron, Herald of Horus, has achieved immortality through annihilation – now he leads the armies of the damned in a wrathful tide, destroying all before them as the warp begins its poisonous corruption of Terra. For the Emperor’s beleaguered forces, the end has come. The Khan lies on the edge of death. Rogal Dorn is encircled, fighting his own war at Bhab Bastion. Guilliman will not reach Terra in time. Without his brothers, Sanguinius – the Angel of the Ninth Legion – waits on the final battlements, hoping to rally a desperate band of defenders and refugees for one last stand.', 'Action', 'Echoes of Eternity', '2024-03-17 06:08:54'),
@@ -149,9 +143,7 @@ CREATE TABLE `shopping_cart` (
 
 -- --------------------------------------------------------
 
---
 -- Table structure for table `user`
---
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
@@ -162,9 +154,7 @@ CREATE TABLE `user` (
   `full_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `user`
---
 
 INSERT INTO `user` (`id`, `username`, `password`, `user_type`, `email`, `full_name`) VALUES
 (1, 'wj', '$2y$10$7cAyvKlbAtOoFE6BMP1p0e2JMlord3UG8h7N6fsd5a2Ad86rckunK', 'user', 'weijie@gmail.com', 'Wei Jie'),

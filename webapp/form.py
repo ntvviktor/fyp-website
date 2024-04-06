@@ -1,10 +1,13 @@
 from flask_wtf import FlaskForm
 from wtforms import EmailField, PasswordField
+from wtforms.fields.simple import StringField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from webapp.models.user_model import User
 
 
 class RegisterForm(FlaskForm):
+    full_name = StringField('Full Name', validators=[])
+    username = StringField('Username')
     email = EmailField(
         "Email", validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
     )

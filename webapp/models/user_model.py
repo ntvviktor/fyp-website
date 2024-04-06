@@ -5,19 +5,23 @@ from .. import bcrypt, db
 
 
 class User(UserMixin, db.Model):
-    __tablename__ = "users"
+    __tablename__ = "user"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(), primary_key=True)
+    username = db.Column(db.String)
     full_name = db.Column(db.String)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
 
-    def __init__(self, email, password, is_admin=False):
+    def __init__(self, full_name, username, email, password, is_admin=False):
+        self.id = str(uuid.uuid4())
+        self.full_name = full_name
+        self.username = username
         self.email = email
         self.password = bcrypt.generate_password_hash(password)
-        self.created_at = datetime.now()
+        self.created_at = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
         self.is_admin = is_admin
 
     def __repr__(self):
