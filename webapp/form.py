@@ -6,13 +6,13 @@ from webapp.models.user_model import User
 
 
 class RegisterForm(FlaskForm):
-    full_name = StringField('Full Name', validators=[])
-    username = StringField('Username')
+    fullname = StringField('Full Name', validators=[DataRequired(message="Field required"), ])
+    username = StringField('Username', validators=[DataRequired(message="Field required")])
     email = EmailField(
-        "Email", validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
+        "Email", validators=[DataRequired(message="Field required"), Email(message="Not Empty"), Length(min=6, max=40)]
     )
     password = PasswordField(
-        "Password", validators=[DataRequired(), Length(min=6, max=25)]
+        "Password", validators=[DataRequired(), Length(min=8, max=25, message="Password must be at least 8 characters")]
     )
     confirm = PasswordField(
         "Repeat password",

@@ -16,14 +16,15 @@ def login():
         return redirect(url_for("home.home"))
     form = LoginForm(request.form)
 
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, request.form["password"]):
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+        user = User.query.filter_by(email=email).first()
+        if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for("home.home"))
-        else:
-            flash("Invalid email and/or password.", "danger")
-            return render_template("accounts/login.html", form=form)
+        flash("Invalid email and/or password.", "danger")
+
     return render_template("accounts/login.html", form=form)
 
 
@@ -33,13 +34,13 @@ def register():
         flash("You are already registered.", "info")
         return redirect(url_for("home.home"))
     form = RegisterForm(request.form)
-    # if request.method == "POST" and form.validate_on_submit():
-    if request.method == "POST":
-        full_name = form["full_name"].data
-        username = form["username"].data
-        email = form["email"].data
-        password = form["password"].data
-        user = User(full_name=full_name, username=username, email=email, password=password)
+    
+    if request.method == "POST" and form.validate_on_submit():
+        full_name = form.fullname.data
+        username = form.username.data
+        # email = form["email"].data
+        # password = form["password"].data
+        user = User(full_name=full_name, username=username, email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
 

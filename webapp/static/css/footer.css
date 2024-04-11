@@ -15,7 +15,7 @@ h2 {
   display: flex;
 }
 
-ul li:not(:first-child) {
+ul li {
   padding: 5px;
 }
 

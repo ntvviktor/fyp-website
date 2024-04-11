@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
-    <title>Otaku Oasis</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="{{ url_for('static', filename='burger-menu-toggle.js') }}"></script>
-    <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/header.css') }}"
-    />
-    <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/footer.css') }}"
-    />
-    <title>{% block title %} {% endblock %}</title>
-    {% block head %} {% endblock %}
-</head>
-<body>
-{% include 'header.html' %}
-<div id="content">
-    {% block content %}
-        <!-- Placeholder for Page Content -->
-    {% endblock %}
-</div>
-{% include 'footer.html' %}
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="keywords" content="ecommere, recommendation, books">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+              content="Ecommerce website for books with better recommendation engine">
+        <link rel="icon"
+              type="image/png"
+              href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <title>Otaku Oasis</title>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.1/dist/full.min.css"
+              rel="stylesheet"
+              type="text/css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/header.css') }}" />
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/footer.css') }}" />
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        {% include 'components/header.html' %}
+        <div id="content">
+            {% block content %}<!-- Placeholder for Page Content -->{% endblock %}
+        </div>
+        {% include 'components/footer.html' %}
+    </body>
 </html>

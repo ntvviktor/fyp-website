@@ -47,3 +47,7 @@ Before committing, please make the new branch.
 Demo image:
 
 ![](https://github.com/ntvviktor/fyp-website/blob/main/demo.png)
+
+Instead of each time we create new class in the webapp -> models folder, can user Flask-Migration
+to run the `flask db migrate -m "adding message"` to create migration files, the run `flask db upgrade` to 
+apply into database.

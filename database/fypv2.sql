@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Create shopping cart table
 
 
-CREATE TABLE IF NOT EXISTS `shopping_cart` (
-  `id` varchar(36) DEFAULT(UUID()) PRIMARY KEY,
-  `user_id` varchar(36) NOT NULL,
-  `book_id` varchar(36) NOT NULL,
-  `quantity` int unsigned NOT NULL,
-   CONSTRAINT `shopping_cart_fk_1` FOREIGN KEY (`user_id`) REFERENCES user(id),
-   CONSTRAINT `shopping_cart_fk_2` FOREIGN KEY (`book_id`) REFERENCES book(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- CREATE TABLE IF NOT EXISTS `shopping_cart` (
+--  `id` varchar(36) DEFAULT(UUID()) PRIMARY KEY,
+--  `user_id` varchar(36) NOT NULL,
+--  `book_id` varchar(36) NOT NULL,
+--  `quantity` int unsigned NOT NULL,
+--   CONSTRAINT `shopping_cart_fk_1` FOREIGN KEY (`user_id`) REFERENCES user(id),
+--   CONSTRAINT `shopping_cart_fk_2` FOREIGN KEY (`book_id`) REFERENCES book(id)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Insert data
 

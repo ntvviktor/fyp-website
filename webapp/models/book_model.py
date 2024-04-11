@@ -4,18 +4,10 @@ import shortuuid
 import uuid
 
 
-class Genre(db.Model):
-    __tablename__ = 'genre'
-    id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String(45))
-
-    def __repr__(self):
-        return f'<Genre {self.type}>'
-
-
 class Book(db.Model):
     __tablename__ = 'book'
-    id = db.Column(db.String(), primary_key=True)
+
+    id = db.Column(db.String(36), primary_key=True)
     isbn = db.Column(db.String(255))
     title = db.Column(db.String(255))
     price = db.Column(db.Float(10, 2))
@@ -23,4 +15,13 @@ class Book(db.Model):
     publisher = db.Column(db.String(255))
     url = db.Column(db.String(255))
     genre = db.Column(db.String(255))
-    datetime = db.Column(db.DateTime, default=datetime.datetime.now())
+
+    def __init__(self, isbn, title, price, author, publisher, url, genre=""):
+        self.id = str(uuid.uuid4())
+        self.isbn = isbn
+        self.title = str(title)
+        self.price = price
+        self.author = str(author)
+        self.publisher = str(publisher)
+        self.url = str(url)
+        self.genre = str(genre)
