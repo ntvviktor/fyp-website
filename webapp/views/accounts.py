@@ -16,9 +16,9 @@ def login():
         return redirect(url_for("home.home"))
     form = LoginForm(request.form)
 
-    if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
         user = User.query.filter_by(email=email).first()
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
@@ -35,12 +35,9 @@ def register():
         return redirect(url_for("home.home"))
     form = RegisterForm(request.form)
     
-    if request.method == "POST" and form.validate_on_submit():
-        full_name = form.fullname.data
-        username = form.username.data
-        # email = form["email"].data
-        # password = form["password"].data
-        user = User(full_name=full_name, username=username, email=form.email.data, password=form.password.data)
+    if form.validate_on_submit():
+        user = User(full_name=form.fullname.data, username=form.username.data, 
+                    email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
 
