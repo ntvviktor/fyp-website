@@ -1,4 +1,4 @@
-How to run this project
+## How to run this project
 
 0. Populate the sql data into your local MySQL database
    the query is in the folder `database/fypv2.sql`
@@ -13,7 +13,7 @@ python3 -m venv .venv
    Window
 
 ```shell
-.venv\Scripts\activate
+\venv\Scripts\activate.bat
 ```
 
 MacOS/Linux
@@ -22,7 +22,7 @@ MacOS/Linux
 . .venv/bin/activate
 ```
 
-3. Install dependencies
+3. Install dependencies:
    change directory to fyp-website
 
 ```shell
@@ -39,7 +39,8 @@ DATABASE_URL=mysql://root:<password>@localhost:3306/fyp
 
 Remember to populate the records of the `sql` file in the `database` directory
 
-4. Run the localhost
+4. Run the localhost:
+   Add `training.json` in tele the same directory as `main.py` before running
 
 ```shell
 python main.py
@@ -53,6 +54,9 @@ Demo image:
 
 ![](https://github.com/ntvviktor/fyp-website/blob/main/demo.png)
 
+## How to use database migrations
+
+`flask db init`
 Instead of each time we create new class in the webapp -> models folder, can user Flask-Migration
 to run the `flask db migrate -m "adding message"` to create migration files, the run `flask db upgrade` to
 apply into database.

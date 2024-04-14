@@ -32,3 +32,7 @@ def home():
 @home_bp.route("/about", methods=["GET"])
 def about():
     return render_template("about.html")
+
+@home_bp.route("/admin", methods=["GET"])
+def admin():
+    return render_template("admin.html")

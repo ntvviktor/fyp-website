@@ -4,32 +4,8 @@
 <!-- Page content -->
 {% block content %}
     {% if is_logged_in %}
-        <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-            <form>
-                <label for="default-search"
-                       class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-                <div class="relative">
-                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-500"
-                             fill="none"
-                             stroke="currentColor"
-                             viewBox="0 0 24 24"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
-                            </path>
-                        </svg>
-                    </div>
-                    <input type="search"
-                           id="default-search"
-                           class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                           placeholder="Search books..."
-                           required>
-                    <button type="submit"
-                            class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Search
-                    </button>
-                </div>
-            </form>
+        {% include "components/search.html" %}
+        <div class="mx-auto max-w-2xl px-4 pb-12 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <h2 class="text-2xl">Recommended Products</h2>
             <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                 {% for product in recommend_products %}
@@ -48,48 +24,42 @@
             </div>
         </div>
     {% else %}
-        <div class="bg-white">
-            <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-                <h2 class="text-2xl">Most Viewed Products</h2>
-                <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                    {% for product in most_viewed_products %}
-                        <a href="#" class="group">
-                            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                                <img src="{{ product.url }}"
-                                     alt="image"
-                                     class="h-full w-full object-cover object-center group-hover:opacity-75"
-                                     width=""
-                                     height="">
-                            </div>
-                            <h3 class="mt-4 text-lg text-gray-700">{{ product.title }}</h3>
-                            <p class="mt-1 text-sm font-medium text-gray-900">{{ product.author }}</p>
-                        </a>
-                    {% endfor %}
-                </div>
+        <div class="mx-auto max-w-2xl px-4 pb-12 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+            <h2 class="text-2xl">Most Viewed Products</h2>
+            <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                {% for product in most_viewed_products %}
+                    <a href="#" class="group">
+                        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                            <img src="{{ product.url }}"
+                                 alt="image"
+                                 class="h-full w-full object-cover object-center group-hover:opacity-75"
+                                 width=""
+                                 height="">
+                        </div>
+                        <h3 class="mt-4 text-lg text-gray-700">{{ product.title }}</h3>
+                        <p class="mt-1 text-sm font-medium text-gray-900">{{ product.author }}</p>
+                    </a>
+                {% endfor %}
             </div>
         </div>
     {% endif %}
     <!-- On Sale Now -->
-    <div class="bg-white">
-        <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-            <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-                <h2 class="text-2xl">On Sale Now</h2>
-                <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                    {% for product in on_sale_products %}
-                        <a href="#" class="group">
-                            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                                <img src="{{ product.url }}"
-                                     alt="image"
-                                     class="h-full w-full object-cover object-center group-hover:opacity-75"
-                                     width=""
-                                     height="">
-                            </div>
-                            <h3 class="mt-4 text-sm text-gray-700">{{ product.title }}</h3>
-                            <p class="mt-1 text-lg font-medium text-gray-900">{{ product.price }}</p>
-                        </a>
-                    {% endfor %}
-                </div>
-            </div>
+    <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <h2 class="text-2xl">On Sale Now</h2>
+        <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            {% for product in on_sale_products %}
+                <a href="#" class="group">
+                    <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                        <img src="{{ product.url }}"
+                             alt="image"
+                             class="h-full w-full object-cover object-center group-hover:opacity-75"
+                             width=""
+                             height="">
+                    </div>
+                    <h3 class="mt-4 text-sm text-gray-700">{{ product.title }}</h3>
+                    <p class="mt-1 text-lg font-medium text-gray-900">{{ product.price }}</p>
+                </a>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
