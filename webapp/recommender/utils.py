@@ -21,7 +21,7 @@ def load_data(data_path):
             item_id_map, item_popularity, num_users, num_items)
 
 
-def inference(model, user_id, user_ratings_tensor, item_id_map, k=10, apply_dropout=False):
+def inference(model, user_id, user_ratings_tensor, item_id_map, k=20, apply_dropout=False):
     """
     Recommend top k items for a user.
     Returns Numpy Array

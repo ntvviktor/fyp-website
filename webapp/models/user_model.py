@@ -5,7 +5,7 @@ from .. import bcrypt, db
 
 
 class User(UserMixin, db.Model):
-    __tablename__ = "user"
+    __tablename__ = "users"
 
     id = db.Column(db.String(250), primary_key=True)
     username = db.Column(db.String(250))

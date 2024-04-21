@@ -1,10 +1,10 @@
-<div class="navbar bg-base-100 lg:px-10 border-b-2 border-b-stone-300 drop-shadow-md relative z-50">
+<div class="navbar bg-base-100 lg:px-10 border-b-2 border-b-stone-300 drop-shadow-md">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl">OtakuOasis</a>
+    <a class="btn btn-ghost text-xl" href="{{ url_for("home.home")}}">OtakuOasis</a>
   </div>
   {% if is_logged_in %}
     <div class="navbar-end relative">
-      <div class="dropdown dropdown-end">
+      <div class="dropdown dropdown-end absolute z-100">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">
             <img alt="Tailwind CSS Navbar component"
@@ -14,7 +14,7 @@
           </div>
         </div>
         <ul tabindex="0"
-            class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 absolute z-50c">
+            class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50">
           <li>
             <a href="#">Profile</a>
           </li>
@@ -28,7 +28,7 @@
     <div class="navbar-end flex flex-row sm:gap-2 gap-x-4 items-center">
       <a class="btn btn-xs btn-sm md:btn-md"
          href="{{ url_for("accounts.login") }}">Login</a>
-      <a class="btn btn-active btn-accent btn-sm md:btn-md"
+      <a class="btn btn-active btn-accent hover:bg-teal-500 btn-sm md:btn-md"
          href="{{ url_for("accounts.register") }}">Register</a>
     </div>
   {% endif %}

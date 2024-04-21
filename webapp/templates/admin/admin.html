@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Admin{% endblock %}
+{% block content %}
+
+{% include 'admin/sub_navbar.html'%}
+
+<div class="overview-box text-left mx-auto w-3/4 lg:w-2/3 xl:w-1/2">
+    <h3>Overview</h3>
+    <p><strong>Purpose:</strong> The additional content provides users with valuable information and features related to
+        our book management system.</p>
+    <p><strong>Key Features:</strong></p>
+    <ul>
+        <li>Access to a comprehensive database of books</li>
+        <li>Ability to add new books to the system</li>
+        <li>View orders placed by customers</li>
+        <li>Manage user accounts and permissions</li>
+    </ul>
+    <p><strong>Benefits:</strong></p>
+    <ul>
+        <li>Streamlined book management process</li>
+        <li>Improved organization and tracking of orders</li>
+        <li>Efficient user account management</li>
+        <li>Enhanced user experience for administrators</li>
+    </ul>
+    <p>Explore the additional features by clicking the button below.</p>
+    <a href="/total_books" class="btn btn-primary">Explore</a>
+</div>
+{% endblock %}

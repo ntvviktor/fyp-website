@@ -21,12 +21,13 @@
         <title>
             {% block title %}{% endblock %}
         </title>
+        <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
         {% block head %}{% endblock %}
     </head>
     <body>
         {% include 'components/header.html' %}
-        <div id="content">
-            {% block content %}<!-- Placeholder for Page Content -->{% endblock %}
+        <div id="content" class="flex flex-col items-center justify-center">
+            {% block content %} {% endblock %}
         </div>
         {% include 'components/footer.html' %}
     </body>
