@@ -4,7 +4,7 @@ from webapp.models.book_model import Book
 from webapp.models.user_model import User
 import torch
 import pandas as pd
-from webapp.recommender.model import train_matrix, model, item_id_map, original_book_data
+from webapp.recommender.model import train_matrix, model, item_id_map, original_book_data, create_plot, create_plot_2
 from webapp.recommender.utils import inference
 import plotly
 import plotly.graph_objs as go
@@ -16,7 +16,10 @@ admin_bp = Blueprint("admin", __name__)
 def admin():
     total_books = Book.query.count()
     total_users = User.query.count()
-    return render_template("admin/admin.html", total_books=total_books, total_users=total_users)
+    graph = create_plot()
+    graph2 = create_plot_2()
+    return render_template("admin/admin.html", total_books=total_books,
+                           total_users=total_users, plot=graph, plot2=graph2)
 
 
 @admin_bp.route("/add-books", methods=["GET"])

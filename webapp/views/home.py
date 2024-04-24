@@ -48,7 +48,8 @@ def book(isbn):
     is_logged_in = True
     # TODO: Change temporary user id, and query the total book
     user_id = torch.LongTensor([100])
-    updated_ratings = [0] * 979
+    total_books = Book.query.count()
+    updated_ratings = [0] * total_books
     book_id = original_book_data[original_book_data["isbn"] == isbn]["book_id"].to_list()
     book_index = item_id_map[book_id[0]]
     updated_ratings[book_index] = 1

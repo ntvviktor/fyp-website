@@ -59,4 +59,4 @@ def logout():
 @accounts_bp.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    return "<h1>Welcome</h1>"
+    return render_template("accounts/user_profile.html", form=form)
