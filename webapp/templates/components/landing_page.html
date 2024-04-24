@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% include 'components/sub_navbar.html' %}
+    <style>
+        .landing-page {
+            background-color: #FAACA8;
+            background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+        }
+    </style>
+    <div class="flex flex-col lg:flex-row items-center justify-between mx-auto landing-page">
+        <div class="min-w-md lg:w-1/2 flex justify-start items-center">
+            <img class="inline-block shadow-lg w-full object-contain"
+                 src="{{ url_for("static", filename="images/image.webp") }}" alt="Landing Image">
+        </div>
+        <div class="lg:w-1/2 lg:pl-14 text-center lg:text-left mt-6 lg:mt-0 my-6">
+            <p class="text-xs lg:text-sm text-gray-500 font-semibold mb-2">Browse books from</p>
+            <h1 class="text-3xl lg:text-6xl font-bold bg-gradient-to-r from-teal-500 to-teal-800 bg-clip-text text-transparent uppercase mb-4">
+                The Best Book<br>Recommender
+            </h1>
+            <div class="space-x-4 mt-4">
+                <a class="btn border-0 bg-[#14b5a4] hover:bg-teal-600 btn-sm md:btn-md w-52"
+                   href="{{ url_for("accounts.login") }}">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container lg:mx-auto px-6 mt-10 md:mt-32">
+        <h1 class="text-xl font-semibold mb-4">View Trending Products</h1>
+        <div class="flex flex-col items-center justify-center">
+
+            <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 xl:grid-cols-5 xl:gap-x-8">
+                {% for product in best_sellers %}
+                    <a href="{{ url_for('accounts.login', isbn=product.isbn) }}" class="group">
+                        <div class="relative w-full h-64 overflow-hidden rounded-md bg-transparent border-gray-600">
+                            <img src="{{ product.img }}"
+                                 alt="image"
+                                 class="relative z-10 object-contain w-full h-full object-center pt-2 px-2 md:pt-6 md:px-4">
+                        </div>
+                        <h3 class="mt-4 text-base text-cyan-700 hover:underline hover:text-cyan-900 hover:cursor-pointer line-clamp-2">{{ product.title }}</h3>
+                        <p class="mt-1 text-sm font-medium text-gray-900">by <i>{{ product.author }}</i></p>
+                        <p class="mt-1 text-base font-medium text-gray-950">{{ product.price }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+            <a class="mt-10 sm:mt-16 btn btn-accent hover:bg-teal-500 btn-sm md:btn-md w-52"
+               href="{{ url_for("accounts.login") }}">View All</a>
+        </div>
+    </div>
+
+    <div class="my-14 sm:my-2 w-full h-[80vh] flex flex-col items-center justify-center gap-8" id="testimonials">
+        <h1 class="text-xl font-semibold text-gray-800 leading-relaxed text-center w-4/5">
+            Testimonials
+        </h1>
+        <h1 class="text-lg md:text-xl text-gray-600 leading-relaxed text-center w-4/5">
+            "As an enthusiastic reader always on the lookout for my next great read, I've been thoroughly impressed by
+            OtakuOasis's uncanny ability to suggest exactly what I'm in the mood for. Their recommendation engine must
+            be magic! It seems to understand my tastes better than I do myself. Each recommendation has been spot-on,
+            leading me to discover books that have become instant favorites, add to a seamless shopping experience.
+            Whether you're a lifelong bibliophile or a casual reader, OtakuOasis is your go-to for uncovering hidden
+            gems and the latest must-reads"
+        </h1>
+        <div class="flex items-center gap-4">
+            <div class="rounded-full w-12 h-12 bg-black overflow-hidden">
+                <img src="https://rairaksa.github.io/assets/img/rai.jpg" alt="person"/>
+            </div>
+            <div class="flex flex-col tracking-wider">
+                <label class="text-gray-600 font-bold text-base">Rai Raksa Muhamad</label>
+                <label class="text-gray-400 font-normal text-sm">Buyer</label>
+            </div>
+        </div>
+    </div>
+    {% include "components/cookies.html" %}
+{% endblock %}

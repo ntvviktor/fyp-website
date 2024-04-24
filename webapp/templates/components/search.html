@@ -1,5 +1,6 @@
 <div class="pt-10 px-10 sm:pt-12 mx-auto max-w-2xl lg:max-w-5xl flex flex-row items-center justify-center w-full gap-3">
-    <form class="grow">
+    <form class="grow relative z-40">
+        {# TODO: implement search/sort function, adding the method add to favourite, not cart #}
         <label for="default-search"
                class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
         <div class="relative">
@@ -19,9 +20,7 @@
                    placeholder="Search books..."
                    required>
             <button type="submit"
-                    class="text-white absolute right-2.5 bottom-2.5 bg-teal-600 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-4 py-2">
-                Search
-            </button>
+                    class="text-white absolute right-2.5 bottom-2.5 bg-teal-600 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
         </div>
     </form>
     {% include 'components/cart.html' %}

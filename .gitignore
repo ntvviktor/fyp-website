@@ -13,3 +13,5 @@ build/
 .env
 .idea
 .venv/
+training.json
+node_modules/

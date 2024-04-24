@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Home{% endblock %}
+{% block title %}OtakuOasis{% endblock %}
 {% block content %}
+{% include 'components/sub_navbar.html' %}
     {% if is_logged_in %}
         {% include "components/search.html" %}
         {% include "components/products.html" %}
-
         {% include "components/pagination.html" %}
     {% else %}
     <h1 class="text-2xl">TODO: Landing Page here</h1>

@@ -33,8 +33,10 @@ def create_app():
     # Register Blueprints
     from .views.home import home_bp
     from .views.accounts import accounts_bp
+    from .views.admin import admin_bp
     app.register_blueprint(home_bp)
     app.register_blueprint(accounts_bp)
+    app.register_blueprint(admin_bp)
 
     from .models.user_model import User
 

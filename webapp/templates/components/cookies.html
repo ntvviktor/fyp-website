@@ -1,0 +1,33 @@
+<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <h2 class="font-semibold text-gray-800">🍪 Cookie Notice</h2>
+    <p class="mt-4 text-sm text-gray-600">By continuing to use this site you consent to the use of
+        cookies in accordance with our cookie policy.</p>
+    <div class="modal-action">
+      <form method="dialog">
+         <button class=" text-xs bg-gray-900 font-medium rounded-lg hover:bg-gray-700 text-white px-4 py-2.5 duration-300 transition-colors focus:outline-none">
+            Okay
+        </button>
+      </form>
+    </div>
+  </div>
+</dialog>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        if (!document.cookie.split('; ').find(row => row.startsWith('popup_1_2'))) {
+            showModalById('my_modal_5');
+            // Set the cookie to expire in 7 days
+            const d = new Date();
+            d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = "popup_1_2=2; " + expires + "; path=/";
+        }
+    });
+
+    function showModalById(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.showModal()
+    }
+</script>
+
+        

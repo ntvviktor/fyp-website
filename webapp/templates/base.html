@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="keywords" content="ecommere, recommendation, books">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description"
-              content="Ecommerce website for books with better recommendation engine">
-        <link rel="icon"
-              type="image/png"
-              href="{{ url_for('static', filename='images/favicon.ico') }}">
-        <title>Otaku Oasis</title>
-        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.1/dist/full.min.css"
-              rel="stylesheet"
-              type="text/css" />
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet"
-              href="{{ url_for('static', filename='css/header.css') }}" />
-        <link rel="stylesheet"
-              href="{{ url_for('static', filename='css/footer.css') }}" />
-        <title>
-            {% block title %}{% endblock %}
-        </title>
-        <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
-        {% block head %}{% endblock %}
-    </head>
-    <body>
-        {% include 'components/header.html' %}
-        <div id="content" class="flex flex-col items-center justify-center">
-            {% block content %} {% endblock %}
-        </div>
-        {% include 'components/footer.html' %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="ecommerce, recommendation, books">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Ecommerce website for books with better recommendation engine">
+    <link rel="icon" sizes="96x96" href="{{ url_for('static', filename='images/favicon.png') }}">
+    {#    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">#}
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12"
+            integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a5e0c9a829.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    {% block head %}{% endblock %}
+</head>
+<body data-theme="light">
+{% include 'components/header.html' %}
+<div id="content" class="overflow-x-hidden">
+    {% block content %} {% endblock %}
+</div>
+{% include 'components/footer.html' %}
+</body>
 </html>

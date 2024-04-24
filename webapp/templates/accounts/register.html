@@ -1,33 +1,36 @@
 {% extends 'base.html' %}
 {% block title %}Register{% endblock %}
 {% block content %}
-    <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="min-h-screen flex flex-col justify-center py-12 drop-shadow-lg">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <img class="mx-auto h-24 w-auto"
-                 width=""
-                 height=""
-                 src="{{ url_for("static", filename='images/logo.svg') }}"
-                 alt="logo">
-            <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">Create a new account</h2>
-            <p class="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
-                Or
-                <a href="{{ url_for("accounts.login") }}"
-                   class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-                    login to your account
-                </a>
-            </p>
         </div>
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <a href="{{ url_for("home.home") }}"
+                   class="flex items-center mb-6 text-2xl font-semibold text-gray-900">
+                    <img class="mx-auto h-24"
+                         height=""
+                         width=""
+                         src="{{ url_for("static", filename='images/logo2.png') }}"
+                         alt=>
+                </a>
+                <h2 class="mt-6 text-center text-2xl leading-9 font-extrabold text-gray-900">Create a new account</h2>
+                <p class="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
+                    Or
+                    <a href="{{ url_for("accounts.login") }}"
+                       class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                        login to your account
+                    </a>
+                </p>
                 <form method="post" action="{{ url_for("accounts.register") }}">
                     {{ form.csrf_token }}
                     <div>
-                        <label for="email"
-                               class="block text-sm font-medium leading-5  text-gray-700">Name</label>
+                        <label for="name"
+                               class="block text-sm font-medium leading-5 text-gray-700">Name</label>
                         <div class="mt-1 relative rounded-md shadow-sm">
                             {{ form.fullname(placeholder="John Doe", class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5") }}
                             {% if form.fullname.errors %}
-                                {% for error in form.email.errors %}
+                                {% for error in form.fullname.errors %}
                                     {% include 'components/error_message.html' %}
                                 {% endfor %}
                             {% endif %}
@@ -37,9 +40,9 @@
                         <label for="username"
                                class="block text-sm font-medium leading-5 text-gray-700">Username</label>
                         <div class="mt-1 relative rounded-md shadow-sm">
-                            {{ form.username(placeholder="john", class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5") }}
-                            {% if form.fullname.errors %}
-                                {% for error in form.email.errors %}
+                            {{ form.username(placeholder="johndoe123", class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5") }}
+                            {% if form.username.errors %}
+                                {% for error in form.username.errors %}
                                     {% include 'components/error_message.html' %}
                                 {% endfor %}
                             {% endif %}
@@ -61,7 +64,7 @@
                         <label for="password"
                                class="block text-sm font-medium leading-5 text-gray-700">Password</label>
                         <div class="mt-1 rounded-md shadow-sm">
-                            {{ form.password(placeholder="password",  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5") }}
+                            {{ form.password(placeholder="At least 8 characters",  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5") }}
                             {% if form.password.errors %}
                                 {% for error in form.password.errors %}
                                     {% include 'components/error_message.html' %}

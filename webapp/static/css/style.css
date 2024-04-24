@@ -1,0 +1,6 @@
+@media (min-width: 1024px) {
+    #compare-price, #compare-price-lazada {
+        padding-left: 110px;
+        padding-right: 110px;
+    }
+}

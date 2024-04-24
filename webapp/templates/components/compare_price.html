@@ -1,0 +1,82 @@
+<section id="compare-price" class="my-3.5 mx-8 md:mx-auto max-w-3xl lg:min-w-[1400px]">
+    <section class="text-gray-600 body-font shadow border border-b-gray-300 px-10 rounded-sm">
+        {% if  opentrolley_book.price == "nan" %}
+        <div class="flex flex-row flex-wrap mx-auto space-between" style="padding-top: 20px; padding-bottom: 20px;">
+            <div class="w-32 lg:w-56 sm:w-40 mr-0 sm:mr-10">
+                <img class="w-full h-auto object-contain object-center"
+                     src="{{ url_for('static', filename='images/opentrolley.png') }}"
+                     alt="Not Available"/>
+            </div>
+            <div class="bg-white flex flex-col sm:flex-row items-center mb-4">
+                <div class="flex-grow text-left mt-6 sm:mt-0">
+                    <h1 class="text-black text-xl title-font font-bold mb-2">{{ book.title }}</h1>
+                    <p class="leading-relaxed text-base">Price: Not Available</p>
+                    <span>
+                        Buy it from
+                        <a class="text-blue-500 underline hover:text-blue-600" href="#">
+                                Opentrolley
+                                <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="flex-end inline-flex w-24 sm:w-24 ml-auto">
+                <img class="w-full h-auto object-contain object-center"
+                     src="{{ opentrolley_book.img }}"
+                     alt="opentrolley logo"/>
+            </div>
+        </div>
+            {% else %}
+        <div class="flex flex-row flex-wrap mx-auto space-between" style="padding-top: 20px; padding-bottom: 20px;">
+            <div class="w-32 lg:w-56 sm:w-40 mr-0 sm:mr-10">
+                <img class="w-full h-auto object-contain object-center"
+                     src="{{ url_for('static', filename='images/opentrolley.png') }}"
+                     alt="opentrolley logo"/>
+            </div>
+            <div class="bg-white flex flex-col sm:flex-row items-center mb-4">
+                <div class="flex-grow text-left mt-6 sm:mt-0">
+                    <h1 class="text-black text-xl title-font font-bold mb-2">{{ book.title }}</h1>
+                    <p class="leading-relaxed text-base">Price: {{ opentrolley_book.price }}</p>
+                    <span>
+                        Buy it from
+                        <a class="text-blue-500 underline hover:text-blue-600" href="{{ opentrolley_book.url }}"
+                           target="_blank">
+                                Opentrolley
+                                <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="flex-end inline-flex w-24 sm:w-24 ml-auto">
+                <img class="w-full h-auto object-contain object-center"
+                     src="{{ opentrolley_book.img }}"
+                     alt="opentrolley logo"/>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+</section>
+<section id="compare-price-lazada" class="my-3.5 mx-8 md:mx-auto max-w-3xl lg:min-w-[1400px]">
+    <section class="text-gray-600 body-font shadow border border-b-gray-300 px-10 rounded-sm">
+        <div class="flex flex-row flex-wrap mx-auto" style="padding-top: 20px; padding-bottom: 20px;">
+            <div class="w-32 lg:w-56 sm:w-40 mr-0 sm:mr-10">
+                <img class="w-full h-auto object-contain object-center"
+                     src="{{ url_for('static', filename='images/lazada.png') }}"
+                     alt="opentrolley logo"/>
+            </div>
+            <div class="bg-white flex flex-col sm:flex-row items-center mb-4">
+                <div class="flex-grow text-left mt-6 sm:mt-0">
+                    <h1 class="text-black text-xl title-font font-bold mb-2">{{ book.title }}</h1>
+                    <p class="leading-relaxed text-base">Price: {{ book.price }}</p>
+                    <span>
+                        Buy it from
+                        <a class="text-blue-500 underline hover:text-blue-600" href="{{ book.url }}" target="_blank">
+                                Lazada
+                                <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

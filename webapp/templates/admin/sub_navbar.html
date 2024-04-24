@@ -1,31 +1,11 @@
 <nav class="flex flex-row items-center bg-gray-200 shadow shadow-gray-300 w-full min-h-4">
 	<div class="flex-shrink-0 mx-auto md:px-4">
 		<div class="text-gray-500 order-3 w-full">
-			<ul class="flex justify-between items-center">
-				<li class="text-sm md:px-4 text-indigo-500"><a href="#">Dashboard</a></li>
-				<li class="text-sm md:px-4 hover:text-indigo-400"><a href="#">View All Books</a></li>
-				<li class="text-sm md:px-4 hover:text-indigo-400"><a href="#">Add Books</a></li>
-				<li class="text-sm md:px-4 hover:text-indigo-400"><a href="#">View Users</a></li>
-				<li class="text-sm md:px-4 hover:text-indigo-400"><a href="#">View Orders</a></li>
-				<li class="text-sm md:px-4 hover:text-indigo-400"><a href="#">ML Model</a></li>
+			<ul class="navbar-nav flex justify-between items-center">
+				<li class="text-sm md:px-4 text-cyan-600 hover:text-cyan-700 hover:underline"><a href="{{ url_for("admin.admin")}}">Dashboard</a></li>
+				<li class="text-sm md:px-4 text-cyan-600 hover:text-cyan-700 hover:underline"><a href="{{url_for("admin.add_books")}}">Add Books</a></li>
+				<li class="text-sm md:px-4 text-cyan-600 hover:text-cyan-700 hover:underline"><a href="#">ML Config</a></li>
 			</ul>
 		</div>
 	</div>
 </nav>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var navItems = document.querySelectorAll('ul.navbar-nav > li');
-        
-        navItems.forEach(function (item) {
-            item.addEventListener('click', function (e) {
-                // Reset the background color for all items
-                navItems.forEach(function (navItem) {
-                    navItem.style.backgroundColor = 'transparent';
-                });
-                
-                // Set the background color for the clicked item
-                this.style.backgroundColor = '#c0c0c0';
-            });
-        });
-    });
-</script>

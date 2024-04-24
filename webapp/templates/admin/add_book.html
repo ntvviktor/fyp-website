@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %} Admin {% endblock %}
+{% block content %} 
+{% include 'admin/sub_navbar.html'%}
+<body>
+    <div class="add-book-form text-left mx-auto w-3/4 lg:w-2/3 xl:w-1/2">
+        <h2 class="text-xl font-semibold mb-4">Add a New Book</h2>
+        <form action="" method="post">
+            <div class="mb-4">
+                <label for="isbn" class="block text-sm font-medium text-gray-700">ISBN:</label>
+                <input type="text" id="isbn" name="isbn" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+            </div>
+            <div class="mb-4">
+                <label for="title" class="block text-sm font-medium text-gray-700">Title:</label>
+                <input type="text" id="title" name="title" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+            </div>
+            <div class="mb-4">
+                <label for="price" class="block text-sm font-medium text-gray-700">Price:</label>
+                <input type="number" id="price" name="price" step="0.01" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+            </div>
+            <div class="mb-4">
+                <label for="author" class="block text-sm font-medium text-gray-700">Author:</label>
+                <input type="text" id="author" name="author" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+                <textarea id="description" name="description" required class="mt-1 p-2 border border-gray-300 rounded-md w-full"></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="publisher" class="block text-sm font-medium text-gray-700">Publisher:</label>
+                <input type="text" id="publisher" name="publisher" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+            </div>
+            <div class="mb-4">
+                <label for="url" class="block text-sm font-medium text-gray-700">URL:</label>
+                <input type="text" id="url" name="url" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+            </div>
+            <div class="mb-4">
+                <label for="genre" class="block text-sm font-medium text-gray-700">Genre:</label>
+                <input type="text" id="genre" name="genre" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+            </div>
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Add Book</button>
+        </form>
+    </div>
+</body>
+{% endblock %}

@@ -1,7 +1,6 @@
 from flask import Blueprint, flash, render_template, redirect, request, url_for
 from flask_login import login_required, login_user, logout_user, current_user
 
-
 from .. import bcrypt, db
 from webapp.models.user_model import User
 from webapp.form import LoginForm, RegisterForm
@@ -34,9 +33,9 @@ def register():
         flash("You are already registered.", "info")
         return redirect(url_for("home.home"))
     form = RegisterForm(request.form)
-    
+
     if form.validate_on_submit():
-        user = User(full_name=form.fullname.data, username=form.username.data, 
+        user = User(full_name=form.fullname.data, username=form.username.data,
                     email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -55,3 +54,9 @@ def logout():
     logout_user()
     flash("You were logged out.", "success")
     return redirect(url_for("accounts.login"))
+
+
+@accounts_bp.route("/profile", methods=["GET", "POST"])
+@login_required
+def profile():
+    return "<h1>Welcome</h1>"

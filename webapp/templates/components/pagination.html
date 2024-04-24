@@ -1,19 +1,19 @@
-<div class="flex items-center gap-4 pb-12">
+<div class="flex justify-center items-center gap-4 pb-12">
     {% if page == 1 %}
         <a
-        class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-400 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        class="hidden sm:flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-400 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         href="{{ url_for("home.home", page=page-1)}}"
         style="pointer-events: none"
         >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-        aria-hidden="true" class="w-4 h-4">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
-        </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+            aria-hidden="true" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+            </svg>
         Previous
         </a>
     {% else %}
     <a
-        class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        class="flex overflow-x-auto items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         href="{{ url_for("home.home", page=page-1)}}"
         >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -27,13 +27,13 @@
         {% for n in range(1, 8) %}
             {% if n == page %}
                 <a
-                    class="relative h-10 max-h-[40px] w-10 max-w-[40px] rounded-lg bg-sky-600 text-center align-middle font-sans text-xs font-medium uppercase border-1 text-black shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    class="relative h-10 max-h-[40px] w-8 sm:w-10 max-w-[40px] rounded-lg bg-[#669998] text-center align-middle font-sans text-xs font-medium uppercase border-1 text-black shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     href="{{ url_for('home.home', page=n) }}">
                     <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{{ n }}</span>
                 </a>
             {% else %}
                 <a
-                    class="relative h-10 max-h-[40px] w-10 max-w-[40px] rounded-lg text-center align-middle font-sans text-xs font-medium uppercase border-[1.5px] border-gray-400 text-black shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    class="relative h-10 max-h-[40px] w-8 sm:w-10 max-w-[40px] rounded-lg text-center align-middle font-sans text-xs font-medium uppercase border-[1.5px] border-gray-400 text-black shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     href="{{ url_for('home.home', page=n) }}">
                     <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{{ n }}</span>
                 </a>
@@ -43,7 +43,7 @@
     {% if page == 7 %}
         <a
         class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-400 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-        href="{{ url_for("home.home", page=page+1)}}"
+        href="{{ url_for("home.home", page=page + 1 )}}"
         style="pointer-events: none"
         >
         Next
@@ -54,8 +54,8 @@
         </a>
   {% else %}
   <a
-        class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-        href="{{ url_for("home.home", page=page+1)}}"
+        class="hidden sm:flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        href="{{ url_for("home.home", page=page + 1)}}"
         >
         Next
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
