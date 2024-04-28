@@ -4,7 +4,13 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
+from elasticsearch import Elasticsearch
 import os
+
+es = Elasticsearch("https://localhost:9200",
+                   basic_auth=("elastic", "pWO7bI57CVUt9azKZ4ZQ"),
+                   verify_certs=False)
+print(f"Connected to ElasticSearch cluster `{es.info().body['cluster_name']}`")
 
 load_dotenv()
 
@@ -34,9 +40,11 @@ def create_app():
     from .views.home import home_bp
     from .views.accounts import accounts_bp
     from .views.admin import admin_bp
+    from .views.search import search_bp
     app.register_blueprint(home_bp)
     app.register_blueprint(accounts_bp)
     app.register_blueprint(admin_bp)
+    app.register_blueprint(search_bp)
 
     from .models.user_model import User
 
