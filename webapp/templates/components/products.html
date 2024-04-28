@@ -1,7 +1,7 @@
 <div class="bg-white">
     <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:max-w-7xl lg:px-8">
       <div class="flex flex-row items-center justify-center pb-2 relative">
-        <h2 class="text-md md:text-lg lg:text-xl flex-1 font-semibold">books</h2>
+        <h2 class="text-md md:text-lg lg:text-xl flex-1 font-semibold">Books</h2>
       <style>
           #sortbox:checked ~ #sort-box-menu {
               opacity: 1;
@@ -19,16 +19,17 @@
       
               <div id="sort-box-menu" class="absolute mt-1 right-1 top-full min-w-max shadow opacity-0 z-10">
               <ul class="block text-right text-gray-800 bg-white/85 shadow-lg ring-1 ring-black/5 isolate backdrop-blur-xl rounded-md">
-                  <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Name</a></li>
-                  <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Newest</a></li>
-                  <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Price: Low to High</a></li>
-                  <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Price: High to Low</a></li>
+                  <li><a href="{{ url_for("home.home", page=page, sort="newest") }}" class="block px-3 py-2 hover:bg-gray-200">Newest</a></li>
+                  <li><a href="{{ url_for("home.home", page=page, sort="rating") }}" class="block px-3 py-2 hover:bg-gray-200">Rating</a></li>
+                  <li><a href="{{ url_for("home.home", page=page, sort="price-asc") }}" class="block px-3 py-2 hover:bg-gray-200">Price: Low to High</a></li>
+                  <li><a href="{{ url_for("home.home", page=page, sort="price-desc") }}" class="block px-3 py-2 hover:bg-gray-200">Price: High to Low</a></li>
+                  <li><a href="{{ url_for("home.home", page=page) }}" class="block px-3 py-2 hover:bg-gray-200">None</a></li>
               </ul>
           </div>
       </div>
     </div>
       <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 xl:grid-cols-5 xl:gap-x-8">
-        {% for book in most_viewed_books %}
+        {% for book in books %}
         <a href="{{ url_for('home.book', isbn=book.isbn) }}" class="group">
           <div class="relative w-full h-64 sm:h-72 overflow-hidden rounded-md bg-transparent border-gray-600 xl:aspect-h-8 xl:aspect-w-7">
             <div class="absolute inset-0 bg-gray-200 opacity-40 group-hover:opacity-90"></div>
@@ -39,7 +40,7 @@
           
           <h3 class="mt-4 text-base text-cyan-700 hover:underline hover:text-cyan-900 hover:cursor-pointer line-clamp-2">{{ book.title }}</h3>
           <p class="mt-1 text-sm font-medium text-gray-900">by <i>{{ book.author }}</i></p>
-          <p class="mt-1 text-base font-medium text-gray-950">{{ book.price }}</p>
+          <p class="mt-1 text-base font-medium text-gray-950">S${{ book.price }}</p>
         </a>  
         {% endfor %}
       </div>

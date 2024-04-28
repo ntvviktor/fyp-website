@@ -2,8 +2,7 @@ from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from webapp.models.book_model import Book, OpentrolleyBook
 import torch
-import pandas as pd
-from webapp.recommender.model import train_matrix, model, item_id_map, original_book_data
+from webapp.recommender.model import model, item_id_map, original_book_data
 from webapp.recommender.utils import inference
 
 home_bp = Blueprint("home", __name__)
@@ -11,18 +10,28 @@ home_bp = Blueprint("home", __name__)
 
 @home_bp.route("/", methods=["GET"])
 def home():
-    page = request.args.get("page", default=1, type=int)
-    if page == 1 and "page" not in request.args:
+    page = request.args.get("page")
+    sort_by = request.args.get("sort")
+    if not page or not page.isdigit():
         return redirect(url_for("home.home", page=1))
 
-    page = int(request.args.get("page"))
-    most_viewed_books = Book.query.limit(350).all()
-    most_viewed_books = most_viewed_books[(50 * page - 50): (50 * page)]
+    page = int(page)
+
+    if sort_by == "newest":
+        books = Book.query.order_by(Book.publication_year.desc()).limit(350).all()
+    elif sort_by == "price-asc":
+        books = Book.query.order_by(Book.price).limit(350).all()
+    elif sort_by == "price-desc":
+        books = Book.query.order_by(Book.price.desc()).limit(350).all()
+    else:
+        books = Book.query.order_by(Book.average_rating.desc()).limit(350).all()
+
+    books = books[(50 * page - 50): (50 * page)]
     if current_user.is_authenticated:
         return render_template(
             "home.html",
             is_logged_in=True,
-            most_viewed_books=most_viewed_books,
+            books=books,
             page=page,
         )
 

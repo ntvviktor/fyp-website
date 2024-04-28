@@ -1,0 +1,6 @@
+{% for book in books %}
+    <a class="w-full cursor-pointer text-sm transition duration-500 px-5 py-2
+              hover:bg-blue-200 hover:text-black hover:rounded-md focus:ring-0 truncate"
+       href="{{ url_for('home.book', isbn=book.isbn) }}">{{ book.title }}
+    </a>
+{% endfor %}

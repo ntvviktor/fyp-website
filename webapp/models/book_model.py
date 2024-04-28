@@ -9,7 +9,7 @@ class Book(db.Model):
     id = db.Column(db.String(36), primary_key=True)
     isbn = db.Column(db.String(255), unique=True, nullable=False)
     title = db.Column(db.String(255))
-    price = db.Column(db.String(30))
+    price = db.Column(db.Numeric(10, 2))
     author = db.Column(db.String(255))
     img = db.Column(db.String(255))
     description = db.Column(LONGTEXT)
