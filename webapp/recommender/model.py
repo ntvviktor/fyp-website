@@ -2,7 +2,6 @@ import torch
 from ..recommender.utils import load_data
 from ..recommender.CDAE import CDAE
 import pandas as pd
-import numpy as np
 import plotly
 import plotly.graph_objs as go
 import json

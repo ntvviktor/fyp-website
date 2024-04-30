@@ -3,6 +3,7 @@
 {% block content %}
     {% include 'components/sub_navbar.html' %}
     {% include "components/search.html" %}
+    <div id="display-successful-modal" class="absolute z-[100] left-1/2 -translate-x-1/2 -translate-y-1/2 m-auto top-32 w-1/2"></div>
     <div class="my-3.5 mx-5 md:mx-auto max-w-3xl py-12 lg:max-w-[1400px] lg:min-w-[1400px] lg:px-8">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col md:flex-row -mx-4 md:gap-6 lg:gap-10">
@@ -30,7 +31,12 @@
                             <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
                         </a>
                     </div>
-                    <button class="btn bg-red-400 hover:bg-red-300">
+                    <button class="btn bg-red-400 hover:bg-red-300"
+                            hx-trigger="click"
+                            hx-post="{{ url_for("accounts.add_to_favourite", isbn=book.isbn) }}"
+                            hx-target="#display-successful-modal"
+                            hx-swap="innerHTML"
+                    >
                         Add to favorite
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
@@ -39,7 +45,7 @@
                         </svg>
                     </button>
                     <button class="btn btn-outline btn-info">
-                        <a href="#compare-price"> Compare price </a>
+                        <a href="#compare-price">Compare price</a>
                     </button>
                     <h2 class="mt-10 font-semibold">Description</h2>
                     <div class="flex -mx-6" x-data="texts()">

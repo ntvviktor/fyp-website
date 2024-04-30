@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
 from webapp.models.book_model import Book
 from webapp.models.user_model import User
 import torch
@@ -13,6 +13,7 @@ admin_bp = Blueprint("admin", __name__)
 
 
 @admin_bp.route("/admin", methods=["GET"])
+@login_required
 def admin():
     total_books = Book.query.count()
     total_users = User.query.count()
@@ -22,6 +23,6 @@ def admin():
                            total_users=total_users, plot=graph, plot2=graph2)
 
 
-@admin_bp.route("/add-books", methods=["GET"])
-def add_books():
+@admin_bp.route("/add-book", methods=["GET"])
+def add_book():
     return render_template("admin/add_book.html")

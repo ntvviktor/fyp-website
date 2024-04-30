@@ -1,4 +1,5 @@
-from flask import Flask
+import werkzeug
+from flask import Flask, render_template
 from dotenv import load_dotenv
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -45,6 +46,14 @@ def create_app():
     app.register_blueprint(accounts_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(search_bp)
+
+    @app.errorhandler(werkzeug.exceptions.HTTPException)
+    def internal_error(error):
+        if error.code == 500:
+            return render_template('errors/500.html'), 500
+        elif error.code == 404:
+            return render_template('errors/404.html'), 404
+        return render_template('errors/500.html'), 401
 
     from .models.user_model import User
 
