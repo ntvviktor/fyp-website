@@ -1,15 +1,19 @@
+from sqlalchemy import PrimaryKeyConstraint
 from .. import db
-import shortuuid
 
 
 class FavouriteList(db.Model):
     __tablename__ = 'favourite_list'
 
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    book_isbn = db.Column(db.Integer, db.ForeignKey('books.isbn'))
+    user_id = db.Column(db.String(250), db.ForeignKey('users.id'))
+    book_isbn = db.Column(db.String(30), db.ForeignKey('books.isbn'))
+
+    __table_args__ = (
+        PrimaryKeyConstraint(
+            user_id,
+            book_isbn),
+        {})
 
     def __init__(self, user_id, book_isbn):
-        self.id = shortuuid.uuid()
         self.user_id = user_id
         self.book_isbn = book_isbn

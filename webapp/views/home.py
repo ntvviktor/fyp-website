@@ -1,7 +1,9 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, url_for, abort
 from flask_login import current_user, login_required
 from webapp.models.book_model import Book, OpentrolleyBook
 import torch
+
+from webapp.models.favourite_list import FavouriteList
 from webapp.recommender.model import model, item_id_map, original_book_data
 from webapp.recommender.utils import inference
 
@@ -26,6 +28,12 @@ def home():
     else:
         books = Book.query.order_by(Book.average_rating.desc()).limit(350).all()
 
+    print(current_user.id)
+    book_isbn_list = FavouriteList.query.with_entities(FavouriteList.book_isbn).filter_by(user_id=current_user.id)
+    fav_list = Book.query.filter(Book.isbn.in_(book_isbn_list)).all()
+    total_item = len(fav_list)
+    total_price = sum([b.price for b in fav_list])
+
     books = books[(50 * page - 50): (50 * page)]
     if current_user.is_authenticated:
         return render_template(
@@ -33,6 +41,8 @@ def home():
             is_logged_in=True,
             books=books,
             page=page,
+            total_item=total_item,
+            total_price=total_price
         )
 
     return redirect(url_for("home.landing_page"))
@@ -46,7 +56,8 @@ def landing_page():
 
 @home_bp.route("/about", methods=["GET"])
 def about():
-    return render_template("about.html")
+    is_logged_in = current_user.is_authenticated
+    return render_template("about.html", is_logged_in=is_logged_in)
 
 
 @home_bp.route("/book/<string:isbn>", methods=["GET"])
@@ -74,9 +85,16 @@ def book(isbn):
     recommend_books = Book.query.filter(Book.isbn.in_(recommend_books)).all()
     current_book = Book.query.filter(Book.isbn.in_([isbn])).first()
     opentrolley_book = OpentrolleyBook.query.filter(OpentrolleyBook.isbn.in_([isbn])).first()
+
+    book_isbn_list = FavouriteList.query.with_entities(FavouriteList.book_isbn).filter_by(user_id=current_user.id)
+    fav_list = Book.query.filter(Book.isbn.in_(book_isbn_list)).all()
+    total_item = len(fav_list)
+    total_price = sum([b.price for b in fav_list])
     # TODO: handle empty case
     if book is None:
         pass
     return render_template("book_details.html", book=current_book,
                            recommend_books=recommend_books, opentrolley_book=opentrolley_book,
-                           is_logged_in=is_logged_in)
+                           is_logged_in=is_logged_in,
+                           total_item=total_item,
+                           total_price=total_price)

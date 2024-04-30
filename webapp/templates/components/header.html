@@ -15,10 +15,23 @@
                     class="menu menu-sm dropdown-content mt-3 p-2 text-gray-800 bg-white/80 shadow-lg ring-1 ring-black/5 rounded-md w-52 absolute z-[9999]">
                     <li>
                         {# TODO: implement this user profile page #}
-                        <a href="{{ url_for("accounts.profile") }}">Profile</a>
+                        
+                        <a href="{{ url_for("accounts.profile") }}">
+                            <i class="fa-regular fa-user"></i> 
+                            Profile
+                        </a>
                     </li>
                     <li>
-                        <a href="{{ url_for("accounts.logout") }}">Logout</a>
+                        <a href="{{ url_for("accounts.favourite_list") }}">
+                            <i class="fa-regular fa-heart"></i>
+                            Favourite List
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for("accounts.logout") }}">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            Logout
+                        </a>
                     </li>
                 </ul>
             </div>

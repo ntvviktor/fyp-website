@@ -1,9 +1,11 @@
-from flask import Blueprint, flash, render_template, redirect, request, url_for
+from flask import Blueprint, flash, render_template, redirect, request, url_for, make_response
 from flask_login import login_required, login_user, logout_user, current_user
 
 from .. import bcrypt, db
 from webapp.models.user_model import User
 from webapp.form import LoginForm, RegisterForm
+from ..models.book_model import Book
+from ..models.favourite_list import FavouriteList
 
 accounts_bp = Blueprint("accounts", __name__)
 
@@ -59,4 +61,79 @@ def logout():
 @accounts_bp.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    return render_template("accounts/user_profile.html", form=form)
+    return render_template("accounts/user_profile.html")
+
+
+@accounts_bp.route("/favourite-list", methods=["GET"])
+@login_required
+def favourite_list():
+    is_logged_in = current_user.is_authenticated
+    if is_logged_in:
+        book_isbn_list = FavouriteList.query.with_entities(FavouriteList.book_isbn).filter_by(user_id=current_user.id)
+        fav_list = Book.query.filter(Book.isbn.in_(book_isbn_list)).all()
+        subtotal = sum(book.price for book in fav_list)
+        return render_template("accounts/favourite_list.html",
+                               is_logged_in=is_logged_in,
+                               favourite_list=fav_list,
+                               subtotal_price=subtotal)
+    return redirect(url_for("home.login"))
+
+
+@accounts_bp.route("/add-to-favourite", methods=["POST"])
+@login_required
+def add_to_favourite():
+    is_logged_in = current_user.is_authenticated
+    if is_logged_in:
+        book_isbn = request.args.get("isbn")
+        existing_book_isbn = FavouriteList.query.filter_by(book_isbn=book_isbn).first()
+        if existing_book_isbn is not None:
+            success = False
+            return render_template("accounts/add_to_favourite_response.html", success=success)
+        fav_item = FavouriteList(user_id=current_user.id, book_isbn=book_isbn)
+        db.session.add(fav_item)
+        db.session.commit()
+        success = True
+
+        return render_template("accounts/add_to_favourite_response.html", success=success)
+    return redirect(url_for("accounts.login"))
+
+
+@accounts_bp.route("/delete-from-favorite/<string:isbn>", methods=["DELETE"])
+@login_required
+def delete_from_favourite(isbn):
+    is_logged_in = current_user.is_authenticated
+    if is_logged_in:
+        FavouriteList.query.filter(FavouriteList.book_isbn == isbn).delete()
+        db.session.commit()
+
+        book_isbn_list = FavouriteList.query.with_entities(FavouriteList.book_isbn).filter_by(user_id=current_user.id)
+        fav_list = Book.query.filter(Book.isbn.in_(book_isbn_list)).all()
+
+        return render_template("accounts/favourite_list_inner.html", favourite_list=fav_list)
+
+    return render_template("errors/400.html")
+
+
+@accounts_bp.route("/favourite-list-summary", methods=["GET"])
+@login_required
+def favourite_list_summary():
+    is_logged_in = current_user.is_authenticated
+    if is_logged_in:
+        # Query to fetch the list of ISBNs in the user's favorites.
+        book_isbn_list = FavouriteList.query.with_entities(FavouriteList.book_isbn). \
+            filter_by(user_id=current_user.id).all()
+        isbn_list = [isbn for (isbn,) in book_isbn_list]
+        # Query to get all books that are in the favorites list.
+        if isbn_list:
+            fav_list = Book.query.filter(Book.isbn.in_(isbn_list)).all()
+        else:
+            fav_list = []
+
+        total_item = len(fav_list)
+        total_price = sum(book.price for book in fav_list)
+
+        html_content = render_template("accounts/favourite_list_summary.html",
+                                       total_item=total_item, total_price=total_price)
+        return html_content
+    else:
+        return render_template("errors/400.html"), 400
