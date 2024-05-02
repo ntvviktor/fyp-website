@@ -1,6 +1,60 @@
 {% extends 'base.html' %}
 {% block title %}User profile{% endblock %}
 {% block content %}
-{% include 'components/sub_navbar.html' %}
+    {% include 'components/sub_navbar.html' %}
+    <div class="container mx-auto my-60">
+        <div>
+            <div class="bg-white relative shadow-lg rounded-lg w-5/6 md:w-1/2  lg:w-1/3 xl:w-1/3 mx-auto">
+                <div class="flex justify-center">
+                    <img src="{{ url_for("static", filename="images/user.jpg") }}" alt=""
+                         class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                </div>
+                <div class="mt-16">
+                    <h1 class="font-semibold text-center text-2xl text-gray-800">Profile</h1>
+                    <div class="w-full">
+                        <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
+                            <div class="w-full border-t border-gray-100 text-gray-600 py-4 
+                                        pl-6 pr-3 flex flex-row justify-between gap-4 items-center"
+                                 id="open-edit-form-1" 
+                            >
+                                Email:
+                                <span class="flex-1" id="email">{{ user.email }}</span>
+                                <button hx-get="{{ url_for("accounts.update_profile", edit="true", name="email") }}"
+                                        hx-target="#open-edit-form-1"
+                                        hx-swap="outerHTML"
+                                >
+                                    <i class="fa-regular fa-pen-to-square text-blue-700 hover:scale-125"></i>
+                                </button>
+                            </div>
 
+                            <div class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 flex flex-row justify-between gap-2"
+                                id="open-edit-form-2"
+                            >
+                                Full Name: <span class="flex-1">{{ user.full_name }}</span>
+                                <button hx-get="{{ url_for("accounts.update_profile", edit="true", name="fullname") }}"
+                                        hx-target="#open-edit-form-2"
+                                        hx-swap="outerHTML"
+                                >
+                                    <i class="fa-regular fa-pen-to-square text-blue-700 hover:scale-125"></i>
+                                </button>
+                            </div>
+
+                            <div class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 flex flex-row justify-between gap-2"
+                                id="open-edit-form-3"
+                            >
+                                Username: <span class="flex-1">{{ user.username }}</span>
+                                <button hx-get="{{ url_for("accounts.update_profile", edit="true", name="username") }}"
+                                        hx-target="#open-edit-form-3"
+                                        hx-swap="outerHTML"
+                                >
+                                    <i class="fa-regular fa-pen-to-square text-blue-700 hover:scale-125"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 {% endblock %}

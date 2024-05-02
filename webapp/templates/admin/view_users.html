@@ -1,0 +1,67 @@
+<div id="view-users" class="w-full flex flex-col lg:flex-row items-start lg:items-center justify-between">
+    <div class="px-2 sm:px-4 my-4 lg:my-14 lg:px-64 w-full">
+    <div class="flex flex-row items-center justify-between">
+        <div class="w-full lg:flex-auto">
+            <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
+            <p class="mt-2 text-sm text-gray-700">A list of all the users account</p>
+        </div>
+        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+            <button type="button"
+                    class="block w-full lg:w-auto rounded-md text-white bg-blue-700 px-3 py-2 text-center text-sm
+                    font-semibold shadow-sm hover:text-white hover:bg-blue-800
+                    focus-visible:outline
+                    focus-visible:outline-2 focus-visible:outline-offset-2
+                    focus-visible:outline-black"
+                    hx-get="{{ url_for("admin.add_user") }}"
+                    hx-trigger="click"
+                    hx-target="#view-users"
+                    hx-swap="outerHTML"
+            >
+                Add user
+            </button>
+        </div>
+    </div>
+    <div class="mt-8 flow-root">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <table class="table w-full min-w-full divide-y divide-gray-300">
+                    <thead>
+                    <tr class="border-b-gray-500 px-2">
+                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm front-semibold text-black sm:pl-0">
+                            Full Name
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-blue-500">Email</th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-orange-500">Username
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Admin Status
+                        </th>
+                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                            <span class="sr-only">Edit</span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white/85">
+                    {% for user in users %}
+                        <tr class="border-b-gray-500 px-2">
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                                {{ user.full_name }}
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-black">{{ user.email }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-black"> {{ user.username }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-black">{{ user.is_admin }}</td>
+                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                <span hx-patch="{{ url_for("admin.delete_user", id=user.id) }}"
+                                      hx-target="#view-users"
+                                      hx-swap="outerHTML"
+                                      hx-trigger="click"
+                                   class="text-red-500 cursor-pointer hover:text-red-600 hover:underline">DELETE</span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

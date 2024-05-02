@@ -14,8 +14,10 @@
                 <ul tabindex="0"
                     class="menu menu-sm dropdown-content mt-3 p-2 text-gray-800 bg-white/80 shadow-lg ring-1 ring-black/5 rounded-md w-52 absolute z-[9999]">
                     <li>
+                        <span>Hi <strong>{{ username }}!</strong></span>
+                    </li>
+                    <li>
                         {# TODO: implement this user profile page #}
-                        
                         <a href="{{ url_for("accounts.profile") }}">
                             <i class="fa-regular fa-user"></i> 
                             Profile

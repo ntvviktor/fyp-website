@@ -1,0 +1,98 @@
+<form class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 flex
+flex-row justify-between gap-4 items-center"
+     id="close-edit-form">
+    {% if name == "email" %}
+        Email:
+        <div class="relative h-10 w-full min-w-[150px]">
+            <label>
+                <input
+                        name="email"
+                        type="text"
+                        placeholder=""
+                        class="peer h-full w-full
+                          rounded-md border border-blue-gray-300
+                          !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700
+                          outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200
+                          placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-blue-700 focus:border-t-transparent
+                          focus:!border-t-blue-700 focus:outline-0"
+                        value="{{ user.email }}"
+                />
+            </label>
+        </div>
+        <button type="submit" 
+                hx-patch="{{ url_for("accounts.update_profile", name="email") }}"
+                hx-target="#close-edit-form"
+                hx-swap="outerHTML"
+                >
+            <i class="fa-solid fa-square-check text-green-500 hover:scale-125 text-xl"></i>
+        </button>
+        <button hx-get="{{ url_for("accounts.update_profile", edit="false", name="email") }}"
+                hx-target="#close-edit-form"
+                hx-swap="outerHTML"
+        >
+            <i class="fa-sharp fa-solid fa-xmark text-red-700 hover:scale-125 text-xl"></i>
+        </button>
+    {% elif name == "fullname" %}
+        Full Name:
+        <div class="relative h-10 w-full min-w-[150px]">
+            <label>
+                <input
+                        name="fullname"
+                        type="text"
+                        placeholder=""
+                        class="peer h-full w-full
+                          rounded-md border border-blue-gray-300
+                          !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700
+                          outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200
+                          placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-blue-700 focus:border-t-transparent
+                          focus:!border-t-blue-700 focus:outline-0"
+                        value="{{ user.full_name }}"
+                />
+            </label>
+        </div>
+        <button type="submit" 
+                hx-patch="{{ url_for("accounts.update_profile", name="fullname") }}"
+                hx-target="#close-edit-form"
+                hx-swap="outerHTML"
+        >
+            <i class="fa-solid fa-square-check text-green-500 hover:scale-125 text-xl"></i>
+        </button>
+        <button hx-get="{{ url_for("accounts.update_profile", edit="false", name="fullname") }}"
+                hx-target="#close-edit-form"
+                hx-swap="outerHTML"
+        >
+            <i class="fa-sharp fa-solid fa-xmark text-red-700 hover:scale-125 text-xl"></i>
+        </button>
+    {% else %}
+        Username:
+        <div class="relative h-10 w-full min-w-[150px]">
+            <label>
+                <input
+                        name="username"
+                        type="text"
+                        placeholder=""
+                        class="peer h-full w-full
+                          rounded-md border border-blue-gray-300
+                          !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700
+                          outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200
+                          placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-blue-700 focus:border-t-transparent
+                          focus:!border-t-blue-700 focus:outline-0"
+                        value="{{ user.username }}"
+                />
+            </label>
+        </div>
+        <button type="submit" 
+                hx-patch="{{ url_for("accounts.update_profile", name="username") }}"
+                hx-target="#close-edit-form"
+                hx-swap="outerHTML"
+        >
+            <i class="fa-solid fa-square-check text-green-500 hover:scale-125 text-xl"></i>
+        </button>
+        <button hx-get="{{ url_for("accounts.update_profile", edit="false", name="username") }}"
+                hx-target="#close-edit-form"
+                hx-swap="outerHTML"
+        >
+            <i class="fa-sharp fa-solid fa-xmark text-red-700 hover:scale-125 text-xl"></i>
+        </button>
+    {% endif %}
+</form>

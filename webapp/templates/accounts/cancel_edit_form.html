@@ -1,0 +1,34 @@
+{% if name == "email" %}
+        <div class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 flex flex-row justify-between gap-4 items-center" id="open-edit-form-1">
+            Email:
+            <span class="flex-1" id="email">{{ user.email }}</span>
+            <button hx-get="{{ url_for("accounts.update_profile", edit="true", name="email") }}"
+                    hx-target="#open-edit-form-1"
+                    hx-swap="outerHTML"
+            >
+                <i class="fa-regular fa-pen-to-square text-blue-700 hover:scale-125"></i>
+            </button>
+        </div>
+{% elif name == "fullname" %}
+        <div class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 flex flex-row justify-between gap-4 items-center" id="open-edit-form-2">
+            Full name:
+            <span class="flex-1" id="email">{{ user.full_name }}</span>
+            <button hx-get="{{ url_for("accounts.update_profile", edit="true", name="fullname") }}"
+                    hx-target="#open-edit-form-2"
+                    hx-swap="outerHTML"
+            >
+                <i class="fa-regular fa-pen-to-square text-blue-700 hover:scale-125"></i>
+            </button>
+        </div>
+{% else %}
+        <div class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 flex flex-row justify-between gap-4 items-center" id="open-edit-form-3">
+            Username:
+            <span class="flex-1" id="email">{{ user.username }}</span>
+            <button hx-get="{{ url_for("accounts.update_profile", edit="true", name="username") }}"
+                    hx-target="#open-edit-form-3"
+                    hx-swap="outerHTML"
+            >
+                <i class="fa-regular fa-pen-to-square text-blue-700 hover:scale-125"></i>
+            </button>
+        </div>
+{% endif %}

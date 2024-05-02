@@ -61,7 +61,44 @@ def logout():
 @accounts_bp.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    return render_template("accounts/user_profile.html")
+    is_logged_in = current_user.is_authenticated
+    if is_logged_in:
+        return render_template("accounts/user_profile.html", is_logged_in=is_logged_in, user=current_user)
+
+
+@accounts_bp.route("/update-profile", methods=["GET", "PATCH"])
+@login_required
+def update_profile():
+    is_logged_in = current_user.is_authenticated
+
+    if request.method == "GET" and is_logged_in:
+        edit_status = request.args.get("edit") == "true"
+        name = request.args.get("name")
+        if edit_status:
+            return render_template("accounts/edit_form.html", user=current_user, name=name)
+
+        return render_template("accounts/cancel_edit_form.html", user=current_user, name=name)
+
+    if request.method == "PATCH" and is_logged_in:
+        name = request.args.get("name")
+        email = request.form.get("email")
+        full_name = request.form.get("fullname")
+        username = request.form.get("username")
+
+        user = User.query.filter_by(id=current_user.id).first()
+
+        email = email if email else user.email
+        full_name = full_name if full_name else user.full_name
+        username = username if username else user.username
+
+        user.email = email
+        user.full_name = full_name
+        user.username = username
+
+        db.session.commit()
+
+        user = User.query.filter_by(id=current_user.id).first()
+        return render_template("accounts/cancel_edit_form.html", user=user, name=name)
 
 
 @accounts_bp.route("/favourite-list", methods=["GET"])

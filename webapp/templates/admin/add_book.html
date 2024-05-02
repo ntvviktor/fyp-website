@@ -2,10 +2,9 @@
 {% block title %}Admin{% endblock %}
 {% block content %} 
 {% include 'admin/sub_navbar.html'%}
-<body>
-    <div class="add-book-form text-left mx-auto w-3/4 lg:w-2/3 xl:w-1/2">
+    <div class="add-book-form text-left mx-auto w-3/4 lg:w-2/3 xl:w-1/2 my-4">
         <h2 class="text-xl font-semibold mb-4">Add a New Book</h2>
-        <form action="" method="post">
+        <form action="{{ url_for("admin.add_book")}}" method="post">
             <div class="mb-4">
                 <label for="isbn" class="block text-sm font-medium text-gray-700">ISBN:</label>
                 <input type="text" id="isbn" name="isbn" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
@@ -41,5 +40,4 @@
             <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Add Book</button>
         </form>
     </div>
-</body>
 {% endblock %}

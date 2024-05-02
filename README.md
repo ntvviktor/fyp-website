@@ -85,4 +85,10 @@ Then run:
 ```shell
 python insert_book.py
 python insert_book_v2.py
+python insert_book_v3.py
+```
+
+Install Elasticsearch and run:
+```
+python loader.py
 ```

@@ -9,7 +9,6 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 load_dotenv()
 """
 Token:
-eyJ2ZXIiOiI4LjEzLjIiLCJhZHIiOlsiMTAuMzMuMTYxLjM5OjkyMDAiXSwiZmdyIjoiOTYwNmI1NGUwNWNhODlkMTRhZjY5MGU3MTUzMGFlZjYwODE0NWU1ODhkMzk4MDcyNmJmNjQ0ZmIyYzA1NjU3YyIsImtleSI6IjlmMVhIbzhCMG5aVWpRMDBydkNBOnlRbkE1b3VJU01pNFpYVHJHdlVsVkEifQ==
 """
 
 client = Elasticsearch("https://localhost:9200",
