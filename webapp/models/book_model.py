@@ -1,3 +1,5 @@
+from sqlalchemy import Text
+
 from .. import db
 import shortuuid
 from sqlalchemy.dialects.mysql import LONGTEXT
@@ -43,6 +45,25 @@ class OpentrolleyBook(db.Model):
     price = db.Column(db.String(30))
     img = db.Column(db.String(255))
     url = db.Column(db.String(255))
+    provider = db.Column(db.String(30))
+
+    def __init__(self, isbn, price, img, url, provider):
+        self.id = str(shortuuid.uuid())
+        self.isbn = isbn
+        self.img = img
+        self.price = price
+        self.url = url
+        self.provider = provider
+
+
+class LazadaBook(db.Model):
+    __tablename__ = 'lazada_books'
+
+    id = db.Column(db.String(36), primary_key=True)
+    isbn = db.Column(db.String(255), db.ForeignKey('books.isbn'), nullable=False)
+    price = db.Column(db.String(30))
+    img = db.Column(Text)
+    url = db.Column(Text)
     provider = db.Column(db.String(30))
 
     def __init__(self, isbn, price, img, url, provider):
