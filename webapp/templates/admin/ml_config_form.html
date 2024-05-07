@@ -1,0 +1,77 @@
+<div class="data-form text-left mx-auto w-3/4 lg:w-2/3 xl:w-1/2 my-20" id="ml-form">
+    <div class="flex flex-row justify-between mt-6">
+        <h2 class="text-xl font-semibold mb-4">Machine Learning Configuration</h2>
+    </div>
+    <form hx-post="{{ url_for("admin.config_ml") }}"
+          hx-trigger="submit"
+          hx-swap="outerHTML"
+          hx-target="#ml-form"
+          hx-indicator="#spinner"
+    >
+        <div class="mb-4">
+            <label for="hidden_dim" class="block text-sm font-medium text-gray-700">Hidden Dimension:</label>
+            <input type="number" id="hidden_dim" name="hidden_dim" required
+                   class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+        </div>
+        <div class="mb-4">
+            <label for="corruption_ratio" class="block text-sm font-medium text-gray-700">Corruption Ratio
+                (0-1):</label>
+            <input type="text" id="corruption_ratio" name="corruption_ratio" required
+                   class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+        </div>
+        <div class="mb-4">
+            <label for="activation" class="block text-sm font-medium text-gray-700">Activation:</label>
+            <select id="activation" name="activation"
+                    class="select select-bordered w-full mt-1 p-2 border border-gray-300">
+                <option value="sigmoid" selected>Sigmoid</option>
+                <option value="tanh">TanH</option>
+                <option value="relu">ReLU</option>
+            </select>
+
+        </div>
+        <div class="mb-4">
+            <label for="num_epoch" class="block text-sm font-medium text-gray-700">Number of Epochs:</label>
+            <input type="text" id="num_epoch" name="num_epoch" required
+                   class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+        </div>
+        <div class="mb-4">
+            <label for="batch_size" class="block text-sm font-medium text-gray-700">Batch Size:</label>
+            <input type="number" id="batch_size" name="batch_size" required
+                   class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+        </div>
+        <div class="mb-4">
+            <label for="learning_rate" class="block text-sm font-medium text-gray-700">Learning Rate:</label>
+            <input type="text" id="learning_rate" name="learning_rate" required
+                   class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+        </div>
+        <div class="flex flex-row justify-end items-center gap-4">
+            <button type="submit" class="px-4 py-2 btn btn-info text-gray-50">Submit</button>
+        </div>
+    </form>
+    <style>
+        .my-indicator {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            z-index: 50; /* High enough to appear above all elements */
+            backdrop-filter: blur(5px); /* Optional blur effect */
+            background: rgba(255, 255, 255, 0.7); /* Adjust the transparency */
+        }
+
+        .htmx-request .my-indicator {
+            display: flex;
+        }
+
+        .htmx-request.my-indicator {
+            display: flex;
+        }
+    </style>
+    <div id="spinner" class="htmx-indicator my-indicator">
+        <img class="" src="{{ url_for("static", filename="images/spinner.svg") }}">
+    </div>
+</div>
