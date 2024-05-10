@@ -26,18 +26,20 @@
                 <textarea id="description" name="description" required class="mt-1 p-2 border border-gray-300 rounded-md w-full"></textarea>
             </div>
             <div class="mb-4">
-                <label for="publisher" class="block text-sm font-medium text-gray-700">Publisher:</label>
-                <input type="text" id="publisher" name="publisher" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+                <label for="publisher" class="block text-sm font-medium text-gray-700">Publication Year:</label>
+                <input type="number" id="publisher" name="publisher" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
             </div>
             <div class="mb-4">
                 <label for="url" class="block text-sm font-medium text-gray-700">URL:</label>
                 <input type="text" id="url" name="url" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
             </div>
             <div class="mb-4">
-                <label for="genre" class="block text-sm font-medium text-gray-700">Genre:</label>
-                <input type="text" id="genre" name="genre" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+                <label for="img" class="block text-sm font-medium text-gray-700">Img url:</label>
+                <input type="text" id="img" name="img" required class="mt-1 p-2 border border-gray-300 rounded-md w-full">
             </div>
-            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Add Book</button>
+            <div class="flex flex-row justify-end items-center gap-4">
+            <button type="submit" class="px-4 py-4 btn btn-info text-gray-50">Add Book</button>
+            </div>
         </form>
     </div>
 {% endblock %}

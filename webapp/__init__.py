@@ -8,9 +8,15 @@ from flask_sqlalchemy import SQLAlchemy
 from elasticsearch import Elasticsearch
 import os
 
-es = Elasticsearch("https://localhost:9200",
-                   basic_auth=("elastic", "pWO7bI57CVUt9azKZ4ZQ"),
+load_dotenv()
+
+es_password = os.getenv('ES_PASSWORD')
+es_host = os.getenv('ELASTICSEARCH_URL')
+
+es = Elasticsearch("https://es01:9200",
+                   basic_auth=("elastic", es_password),
                    verify_certs=False)
+
 print(f"Connected to ElasticSearch cluster `{es.info().body['cluster_name']}`")
 
 load_dotenv()
@@ -42,10 +48,12 @@ def create_app():
     from .views.accounts import accounts_bp
     from .views.admin import admin_bp
     from .views.search import search_bp
+    from .views.image import image_bp
     app.register_blueprint(home_bp)
     app.register_blueprint(accounts_bp)
-    app.register_blueprint(admin_bp)
+    app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(search_bp)
+    app.register_blueprint(image_bp)
 
     @app.errorhandler(werkzeug.exceptions.HTTPException)
     def internal_error(error):

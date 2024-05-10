@@ -1,18 +1,20 @@
 from elasticsearch import Elasticsearch
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine
 import webapp.models.book_model as book_model
 from dotenv import load_dotenv
 from sqlalchemy.orm import sessionmaker
 import os
 import urllib3
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 load_dotenv()
 """
 Token:
 """
-
-client = Elasticsearch("https://localhost:9200",
-                       basic_auth=("elastic", os.getenv("ES_PASSWORD")), verify_certs=False)
+es_password = os.getenv('ES_PASSWORD')
+client = Elasticsearch("https://es01:9200",
+                       basic_auth=("elastic", es_password),
+                       verify_certs=False)
 
 print(f"Connected to the elasticsearch server `{client.info().body['cluster_name']}`")
 
@@ -32,9 +34,10 @@ book_obj = session.query(book_model.Book).all()
 # print(resp)
 
 for i, book in enumerate(book_obj):
-    document = {
-        "title": book.title,
-        "author": book.author,
-        "year": book.publication_year,
-    }
-    client.index(index="books", id=book.isbn, document=document)
+    if not client.exists(index="books", id=book.isbn):
+        document = {
+            "title": book.title,
+            "author": book.author,
+            "year": book.publication_year,
+        }
+        client.index(index="books", id=book.isbn, document=document)

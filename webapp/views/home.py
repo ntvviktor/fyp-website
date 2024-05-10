@@ -1,9 +1,14 @@
 from flask import Blueprint, redirect, render_template, request, url_for, abort
 from flask_login import current_user, login_required
-from webapp.models.book_model import Book, OpentrolleyBook, LazadaBook
+
+from webapp import db
+from webapp.models.book_model import Book, OpentrolleyBook, LazadaBook, NewArrival
 import torch
 
 from webapp.models.favourite_list import FavouriteList
+from webapp.models.review import Review
+from webapp.models.user_model import User
+from webapp.recommender.content_based_model import get_recommendations
 from webapp.recommender.model import model, item_id_map, original_book_data
 from webapp.recommender.utils import inference
 
@@ -14,6 +19,9 @@ home_bp = Blueprint("home", __name__)
 def home():
     if not current_user.is_authenticated:
         return redirect(url_for("home.landing_page"))
+
+    if current_user.is_admin:
+        return redirect(url_for("admin.admin"))
 
     page = request.args.get("page")
     sort_by = request.args.get("sort")
@@ -51,15 +59,17 @@ def home():
 
 @home_bp.route("/home", methods=["GET"])
 def landing_page():
-    best_sellers = Book.query.limit(5).all()
-    return render_template("components/landing_page.html", best_sellers=best_sellers)
+    new_arrivals = NewArrival.query.order_by(NewArrival.publication_year.desc()).limit(5).all()
+    return render_template("components/landing_page.html", new_arrivals=new_arrivals)
 
 
 @home_bp.route("/about", methods=["GET"])
 def about():
-    is_logged_in = current_user.is_authenticated
-    username = current_user.username
-    return render_template("about.html", is_logged_in=is_logged_in, username=username)
+    if current_user.is_authenticated:
+        is_logged_in = current_user.is_authenticated
+        username = current_user.username
+        return render_template("about.html", is_logged_in=is_logged_in, username=username)
+    return render_template("about.html", is_logged_in=False)
 
 
 @home_bp.route("/book/<string:isbn>", methods=["GET"])
@@ -73,9 +83,12 @@ def book(isbn):
         return render_template("errors/404.html")
 
     is_logged_in = True
-    # TODO: Change temporary user id, and query the total book
-    user_id = torch.LongTensor([100])
+
+    db_user_id = current_user.user_id
+    user_id = torch.LongTensor([db_user_id])
     total_books = Book.query.count()
+
+    # Million dollars recommender inference =))
     updated_ratings = [0] * total_books
     book_id = original_book_data[original_book_data["isbn"] == isbn]["book_id"].to_list()
     book_index = item_id_map[book_id[0]]
@@ -98,12 +111,25 @@ def book(isbn):
     fav_list = Book.query.filter(Book.isbn.in_(book_isbn_list)).all()
     total_item = len(fav_list)
     total_price = sum([b.price for b in fav_list])
-    # TODO: handle empty case
+
+    reviews = (
+        db.session.query(Review, User)
+        .join(User, Review.user_id == User.id)
+        .filter(Review.book_isbn == isbn)
+        .all()
+    )
+
+    content_based_isbn_list = get_recommendations(current_book.title, 20)
+    if len(content_based_isbn_list) is None:
+        content_based_isbn_list = []
+    similar_books = Book.query.filter(Book.isbn.in_(content_based_isbn_list)).all()
 
     return render_template("book_details.html", book=current_book,
                            recommend_books=recommend_books,
+                           similar_books=similar_books,
                            opentrolley_book=opentrolley_book,
                            lazada_book=lazada_book,
                            is_logged_in=is_logged_in,
                            total_item=total_item,
-                           total_price=total_price, username=current_user.username)
+                           total_price=total_price, username=current_user.username,
+                           reviews=reviews)

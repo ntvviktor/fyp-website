@@ -17,15 +17,18 @@ indices = pd.Series(book_data.index, index=book_data['title']).drop_duplicates()
 
 def get_recommendations(title, top_k, cosine_sim=cosine_sim):
     # Get the index of the movie that matches the title
-    idx = indices[title]
-    # Get the pairwsie similarity scores of all books
-    sim_scores = list(enumerate(cosine_sim[idx]))
-    # Sort the books get_recommendations() based on the similarity scores
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    try:
+        idx = indices[title]
+        # Get the pairwsie similarity scores of all books
+        sim_scores = list(enumerate(cosine_sim[idx]))
+        # Sort the books get_recommendations() based on the similarity scores
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
-    # Get the scores of the top_k most similar books
-    sim_scores = sim_scores[1: top_k+1]
-    # Get the movie indices
-    book_indices = [i[0] for i in sim_scores]
-    # Return the top 10 most similar books
-    return book_data['isbn'].iloc[book_indices]
+        # Get the scores of the top_k most similar books
+        sim_scores = sim_scores[1: top_k+1]
+        # Get the movie indices
+        book_indices = [i[0] for i in sim_scores]
+        # Return the top 10 most similar books
+        return book_data['isbn'].iloc[book_indices]
+    except KeyError:
+        return None

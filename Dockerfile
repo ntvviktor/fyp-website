@@ -1,4 +1,3 @@
-# Use a Debian-based slim Python image for better compatibility
 FROM python:3.11-slim-bullseye
 
 LABEL authors="viktorngo"
