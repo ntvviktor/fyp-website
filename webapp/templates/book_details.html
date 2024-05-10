@@ -10,7 +10,7 @@
                 <div class="md:flex-1">
                     <div class="h-[460px] border-collapse border border-gray-200 shadow border-opacity-50 rounded px-3 py-6">
                         <img class="w-full h-full object-contain"
-                             src="{{ book.img }}"
+                             src="{{ url_for("image.get_image", isbn=book.isbn) }}"
                              alt="book image">
                     </div>
                 </div>
@@ -144,7 +144,46 @@
             </button>
         </div>
     </div>
+    
+    <div class="mx-auto max-w-3xl py-12 lg:max-w-[1400px] lg:px-8">
+        <h1 class="text-lg font-bold pb-4">Similar Books</h1>
+        <div class="flex flex-row items-center justify-center space-x-4 overflow-hidden w-full">
+            <button onclick="scrollCarousel2(-5)"
+                    class="hidden sm:block bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none">
+                &#8592;
+            </button>
 
+            <div id="carousel-2"
+                 class="flex flex-row space-x-1 gap-12 md:gap-0 overflow-x-auto lg:overflow-x-hidden scroll-smooth">
+                {% for book in similar_books %}
+                    <div class="flex-none w-1/3 md:w-1/5 ">
+                        <a href="{{ url_for('home.book', isbn=book.isbn) }}" class="group">
+                            <div class="rounded-md bg-slate-100 w-52 h-64">
+                                <img src="{{ book.img }}" alt="image"
+                                     class="relative z-10 object-contain w-full h-full object-center pt-2 px-2 md:pt-6">
+                            </div>
+                            <h3 class="mt-4 text-base text-cyan-700 hover:underline hover:text-cyan-900 hover:cursor-pointer line-clamp-2">{{ book.title }}</h3>
+                            <p class="mt-1 text-sm font-medium text-gray-900">by <i>{{ book.author }}</i></p>
+                            <p class="mt-1 text-base font-medium text-gray-950">{{ book.price }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <style>
+                ::-webkit-scrollbar {
+                    height: 4px; /* height of horizontal scrollbar ← You're missing this */
+                    width: 4px; /* width of vertical scrollbar */
+                    border: 1px solid #7b7b7b;
+                }
+            </style>
+            <button onclick="scrollCarousel2(5)"
+                    class="hidden sm:block bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none">
+                &#8594;
+            </button>
+        </div>
+    </div>
+
+    {% include "components/customer_reviews.html" %}
     <script>
         let carousel = document.getElementById('carousel');
         let carouselWidth = carousel.offsetWidth;
@@ -162,6 +201,23 @@
             carousel.scrollLeft = newIndex * (itemWidth + 3);
             currentIndex = newIndex;
         }
+        
+        let carousel2 = document.getElementById('carousel-2');
+        let carouselWidth2 = carousel.offsetWidth;
+        let itemWidth2 = carousel2.children[0].offsetWidth;
+        let numItems2 = carousel2.children.length;
+        let currentIndex2 = 0;
+
+        function scrollCarousel2(direction) {
+            let newIndex = currentIndex2 + direction;
+            if (newIndex < 0) {
+                newIndex = 0;
+            } else if (newIndex >= numItems2 - 4) {
+                newIndex = numItems2 - 5;
+            }
+            carousel2.scrollLeft = newIndex * (itemWidth2 + 3);
+            currentIndex2 = newIndex;
+        }
     </script>
     <style>
         #carousel::-webkit-scrollbar {
@@ -169,6 +225,15 @@
         }
 
         #carousel {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        #carousel-2::-webkit-scrollbar {
+            display: none;
+        }
+
+        #carousel-2 {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }

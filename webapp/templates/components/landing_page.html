@@ -26,11 +26,11 @@
     </div>
 
     <div class="container lg:mx-auto px-6 mt-10 md:mt-32">
-        <h1 class="text-xl font-semibold mb-4">View Trending Products</h1>
+        <h1 class="text-xl font-semibold mb-4">View New Arrivals</h1>
         <div class="flex flex-col items-center justify-center">
 
             <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 xl:grid-cols-5 xl:gap-x-8">
-                {% for product in best_sellers %}
+                {% for product in new_arrivals %}
                     <a href="{{ url_for('accounts.login', isbn=product.isbn) }}" class="group">
                         <div class="relative w-full h-64 overflow-hidden rounded-md bg-transparent border-gray-600">
                             <img src="{{ product.img }}"
