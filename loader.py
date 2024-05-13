@@ -12,8 +12,11 @@ load_dotenv()
 Token:
 """
 es_password = os.getenv('ES_PASSWORD')
-client = Elasticsearch("https://es01:9200",
-                       basic_auth=("elastic", es_password),
+# client = Elasticsearch("https://es01:9200",
+#                        basic_auth=("elastic", es_password),
+#                        verify_certs=False)
+client = Elasticsearch("https://localhost:9200",
+                       basic_auth=("elastic", ""),
                        verify_certs=False)
 
 print(f"Connected to the elasticsearch server `{client.info().body['cluster_name']}`")

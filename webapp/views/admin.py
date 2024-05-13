@@ -3,21 +3,32 @@ import os
 
 import pandas as pd
 import torch
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, g
 from flask_login import current_user, login_required
 from webapp import db
 from webapp.models.book_model import Book, NewArrival
 from webapp.models.favourite_list import FavouriteList
 from webapp.models.user_model import User
 from webapp.recommender.CDAE import CDAE
+from webapp.recommender.Dataset import Dataset
 from webapp.recommender.Evaluator import Evaluator
-from webapp.recommender.model import create_plot, create_plot_2, dataset
+from webapp.recommender.model import create_plot, create_plot_2
 from webapp.recommender.utils import train_model
 
 admin_bp = Blueprint("admin", __name__)
 current_dir = os.path.dirname(__file__)
 base_dir = os.path.abspath(os.path.join(current_dir, '..'))
 
+
+def get_dataset():
+    if 'dataset' not in g:
+        g.dataset = Dataset(
+            data_path="./webapp/recommender/user_item_rating.csv",
+            save_path="training.json",
+            sep=",",
+            device=torch.device("cpu")
+        )
+    return g.dataset
 
 @admin_bp.route("/", methods=["GET"])
 @login_required
@@ -117,6 +128,7 @@ def config_ml():
 
         if request.method == "POST":
             print("We are here")
+            dataset = get_dataset()
             hidden_dim = int(request.form.get("hidden_dim")) if request.form.get("hidden_dim") else 50
             corruption_ratio = float(request.form.get("corruption_ratio")) if request.form.get("corruption_ratio") else 0.5
             activation = request.form.get("activation") if request.form.get("activation") else "tanh"

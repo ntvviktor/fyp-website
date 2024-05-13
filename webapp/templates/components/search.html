@@ -24,6 +24,7 @@
                        hx-target="#search-results"
                        id="search-input-field"
                        autocomplete="off"
+                       ontouchstart="this.removeAttribute('readonly');"
                        oninput="handleSearchInput()"
                        readonly onfocus="this.removeAttribute('readonly');">
                 <button type="submit"

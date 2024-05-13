@@ -13,8 +13,11 @@ load_dotenv()
 es_password = os.getenv('ES_PASSWORD')
 es_host = os.getenv('ELASTICSEARCH_URL')
 
-es = Elasticsearch("https://es01:9200",
-                   basic_auth=("elastic", es_password),
+# es = Elasticsearch("https://es01:9200",
+#                    basic_auth=("elastic", es_password),
+#                    verify_certs=False)
+es = Elasticsearch("https://localhost:9200",
+                   basic_auth=("elastic", ""),
                    verify_certs=False)
 
 print(f"Connected to ElasticSearch cluster `{es.info().body['cluster_name']}`")

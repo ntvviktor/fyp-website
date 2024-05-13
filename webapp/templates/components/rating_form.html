@@ -1,0 +1,87 @@
+<!-- Open the modal using ID.showModal() method -->
+<button class="btn btn-active btn-link" onclick="my_modal_1.showModal()">Rate</button>
+<dialog id="my_modal_1" class="modal">
+    <div class="modal-box">
+        <div class="modal-action" style="margin-top: 0.5rem;">
+            <form method="dialog">
+                <button class=""><i class="fa-solid fa-xmark"></i></button>
+            </form>
+        </div>
+        <h3 class="font-semibold text-sm ml-1">Rate this book!</h3>
+        <form id="model-content"
+              class="mb-4"
+              method="post"
+              hx-post="{{ url_for("home.rating_book", isbn=book.isbn) }}"
+              hx-trigger="submit"
+              hx-target="#model-content"
+              hx-swap="innerHTML"
+              hx-indicator="#spinner">
+            <label class="form-control w-full max-w-xs mb-3.5 mt-2">
+                <select name="rating" class="select select-bordered">
+                    <option disabled selected>Pick one</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </label>
+            <button class="btn btn-accent btn-sm" type="submit">
+                Submit
+            </button>
+        </form>
+        <div id="spinner" class="htmx-indicator absolute top-0 left-0 w-full h-full flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+             preserveAspectRatio="xMidYMid"
+             style="shape-rendering: auto; display: block; background: rgb(255, 255, 255);" width="16"
+             height="16"
+             xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g>
+                <g transform="translate(26.666666666666668,26.666666666666668)">
+                    <rect fill="#e15b64" height="40" width="40" y="-20" x="-20">
+                        <animateTransform begin="-0.3s" values="1.1500000000000001;1" keyTimes="0;1" dur="1s"
+                                          repeatCount="indefinite" type="scale"
+                                          attributeName="transform"></animateTransform>
+                    </rect>
+                </g>
+                <g transform="translate(73.33333333333333,26.666666666666668)">
+                    <rect fill="#f47e60" height="40" width="40" y="-20" x="-20">
+                        <animateTransform begin="-0.2s" values="1.1500000000000001;1" keyTimes="0;1" dur="1s"
+                                          repeatCount="indefinite" type="scale"
+                                          attributeName="transform"></animateTransform>
+                    </rect>
+                </g>
+                <g transform="translate(26.666666666666668,73.33333333333333)">
+                    <rect fill="#f8b26a" height="40" width="40" y="-20" x="-20">
+                        <animateTransform begin="0s" values="1.1500000000000001;1" keyTimes="0;1" dur="1s"
+                                          repeatCount="indefinite" type="scale"
+                                          attributeName="transform"></animateTransform>
+                    </rect>
+                </g>
+                <g transform="translate(73.33333333333333,73.33333333333333)">
+                    <rect fill="#abbd81" height="40" width="40" y="-20" x="-20">
+                        <animateTransform begin="-0.1s" values="1.1500000000000001;1" keyTimes="0;1" dur="1s"
+                                          repeatCount="indefinite" type="scale"
+                                          attributeName="transform"></animateTransform>
+                    </rect>
+                </g>
+                <g></g>
+            </g>
+        </svg>
+        <style>
+            .htmx-indicator {
+                display: none;
+                transition: opacity 500ms ease-in;
+            }
+
+            .htmx-request .htmx-indicator {
+                display: flex;
+            }
+
+            .htmx-request.htmx-indicator {
+                display: flex;
+            }
+        </style>
+        </div>
+    </div>
+</dialog>

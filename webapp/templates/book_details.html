@@ -21,6 +21,11 @@
                     </p>
                     {% include "components/rating.html" %}
                     <div class="my-4">
+                    {% if not rated %}
+                        {% include "components/rating_form.html" %}
+                    {% endif %}
+                    </div>
+                    <div class="my-4">
                         <span class="font-semibold text-gray-700">Price:</span>
                         <span class="text-gray-600">S${{ book.price }}</span>
                     </div>
@@ -145,6 +150,7 @@
         </div>
     </div>
     
+    {% if similar_books is defined and similar_books|length > 0 %}
     <div class="mx-auto max-w-3xl py-12 lg:max-w-[1400px] lg:px-8">
         <h1 class="text-lg font-bold pb-4">Similar Books</h1>
         <div class="flex flex-row items-center justify-center space-x-4 overflow-hidden w-full">
@@ -182,7 +188,8 @@
             </button>
         </div>
     </div>
-
+    {% endif %}
+    {% include "components/recommend_als.html" %}
     {% include "components/customer_reviews.html" %}
     <script>
         let carousel = document.getElementById('carousel');
@@ -201,7 +208,7 @@
             carousel.scrollLeft = newIndex * (itemWidth + 3);
             currentIndex = newIndex;
         }
-        
+
         let carousel2 = document.getElementById('carousel-2');
         let carouselWidth2 = carousel.offsetWidth;
         let itemWidth2 = carousel2.children[0].offsetWidth;
@@ -228,7 +235,7 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        
+
         #carousel-2::-webkit-scrollbar {
             display: none;
         }

@@ -8,18 +8,12 @@ import plotly
 import plotly.graph_objs as go
 import json
 
-dataset = Dataset(
-    data_path="./webapp/recommender/user_item_rating.csv",
-    save_path="training.json",
-    sep=",",
-    device=torch.device("cpu")
-)
 
 train_df, train_matrix, test_matrix, user_id_map, user_popularity, \
     item_id_map, item_popularity, num_users, num_items = load_data("training.json")
 
 original_book_data = pd.read_csv("./webapp/recommender/subset_db.csv", engine="python")
-
+user_item_df = pd.read_csv("./webapp/recommender/user_item_rating.csv", engine="python")
 hidden_dim = 50
 
 model = CDAE(num_users=num_users,

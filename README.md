@@ -36,9 +36,6 @@ DATABASE_URL=mysql://root:<password>@localhost:3306/fyp
 
 Remember to populate the records of the `sql` file in the `database` directory
 
-4. Run the localhost:
-   Add `training.json` in tele the same directory as `main.py` before running
-
 ```shell
 python main.py
 ```
@@ -86,6 +83,10 @@ Then run:
 python insert_book.py
 python insert_book_v2.py
 python insert_book_v3.py
+python insert_reviews.py
+python insert_new_arrivals.py
+python insert_user.py
+python loader.py
 ```
 
 Install Elasticsearch and run:
